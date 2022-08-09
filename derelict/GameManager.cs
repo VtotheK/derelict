@@ -16,7 +16,12 @@ namespace derelict
         public GameManager()
         {
             mapManager = new MapManager();
-            currentMap = mapManager.GenerateInitialMap();
+            currentMap = mapManager.GetInitialMap();
+        }
+
+        public Map GetCurrentMap()
+        {
+            return currentMap;
         }
     }
 }

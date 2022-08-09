@@ -19,7 +19,7 @@ namespace derelict.Levels
             }
             else
             {
-                return availableMaps[0]; //TODO Notes.1
+                return availableMaps[0]; 
             }
         }
     }

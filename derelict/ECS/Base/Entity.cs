@@ -20,7 +20,8 @@ namespace derelict.ECS
         {
             return (T) Components
                 .Where(comp => comp.GetType() == typeof(T))
-                .Select(comp => comp);
+                .Select(comp => comp)
+                .FirstOrDefault();
         }
     }
 }
