@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using derelict.Entities.Base;
 using derelict;
+using System.Collections.Generic;
 
 namespace derelict
 {
@@ -9,6 +11,8 @@ namespace derelict
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private GameManager gameManager;
+        private GameState gameState;
 
         public Derelict()
         {
@@ -20,12 +24,17 @@ namespace derelict
         protected override void Initialize()
         {
             base.Initialize();
+            gameManager = new GameManager();
+            gameState = new GameState
+            {
+                CurrentState = RunningState.StartUp
+            };
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            var entities = new List<<>
+
             // TODO: use this.Content to load your game content here
         }
 
