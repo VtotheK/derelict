@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ namespace derelict
         private SpriteBatch _spriteBatch;
         private GameManager gameManager;
         private GameState gameState;
-        private AssetHandler assetHandler;
 
         public Derelict()
         {
@@ -36,12 +36,10 @@ namespace derelict
             {
                 CurrentState = RunningState.StartUp
             };
-            assetHandler = new AssetHandler();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             graphicsDevice = GraphicsDevice;
-            assetHandler.LoadAssetData();
-            var spriteAsset = assetHandler.GetPlayerSpriteAsset();
-            //TODO Change this implementation
+            gameManager.LoadAssets();
+            gameManager.SetPlayer(); //TODO Make this not shitty, prolly some UI
             // TODO: use this.Content to load your game content here
         }
 
@@ -50,14 +48,16 @@ namespace derelict
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            var keys = Keyboard.GetState().GetPressedKeys();
+            gameManager.HandleInput(keys);
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            // TODO: Add your drawing code here
-
+            gameManager.DrawEntities(_spriteBatch);
             base.Draw(gameTime);
         }
     }

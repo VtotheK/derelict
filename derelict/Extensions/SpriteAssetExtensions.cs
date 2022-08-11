@@ -7,7 +7,6 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.
 
 namespace derelict.Extensions
 {

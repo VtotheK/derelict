@@ -1,10 +1,13 @@
-﻿using System;
+﻿using derelict.Levels;
+using derelict.ECS;
+using derelict.ECS.Components;
+using derelict.Assets;
+using derelict.Extensions;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using derelict.Utils;
-using derelict.Levels;
+using System;
 
 namespace derelict
 {
@@ -12,16 +15,79 @@ namespace derelict
     {
         private Map currentMap;
         private MapManager mapManager;
-
+        private AssetHandler assetHandler;
+        private Entity Player { get; set; }
+        private List<Entity> Entities { get; set; }
         public GameManager()
         {
             mapManager = new MapManager();
+            assetHandler = new AssetHandler();
             currentMap = mapManager.GetInitialMap();
+            Entities = new List<Entity>();
         }
+        public void SetPlayer()
+        {
+            var playerSprite = assetHandler.GetPlayerSpriteAsset(); //TODO Shitty
+            var player = new Entity();
+            player.AttachComponents(
+                new SpriteComponent
+                {
+                    Texture = playerSprite.ToTexture2D(),
+                    SpriteSize = playerSprite.SpriteSize
+                },
+                new PositionComponent { EntityPosition = new Vector2(0.0f, 0.0f) },
+                new PlayerComponent
+                {
+                    Health = 100,
+                    Speed = 0.0f,
+                    Direction = new Vector2(0.0f, 0.0f),
+                });
+            Player = player;
+            Entities.Add(player);
+        }
+
+        public void LoadAssets() { assetHandler.LoadAssetData(); }
 
         public Map GetCurrentMap()
         {
             return currentMap;
+        }
+
+        public void HandleInput(Keys[] pressedKeys)
+        {
+            if(pressedKeys.Length == 0) { return; }
+            float x = 0.0f, y = 0.0f;
+            foreach(var key in pressedKeys)
+            {
+                //TODO Change value not hard coded
+                if(key == Keys.W)
+                {
+                    y += 1.0f;
+                }
+                if(key == Keys.S)
+                {
+                    y -= 1.0f;
+                }
+                if(key == Keys.D)
+                {
+                    x += 1.0f;
+                }
+                if(key == Keys.A)
+                {
+                    x -= 1.0f;
+                }
+            }
+            Player.GetComponent<PlayerComponent>().Direction = new Vector2(x, y);
+        }
+
+        internal void DrawEntities(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin();
+            foreach(var entity in Entities)
+            {
+                entity.Render(spriteBatch);
+            }
+            spriteBatch.End();
         }
     }
 }
