@@ -1,3 +1,3 @@
 ﻿
-using var game = new derelict.Game1();
+using var game = new derelict.Derelict();
 game.Run();

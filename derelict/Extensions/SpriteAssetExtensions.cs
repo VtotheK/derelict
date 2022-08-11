@@ -2,9 +2,12 @@
 using System.IO;
 using System.Drawing;
 using System;
+using System.Diagnostics;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGame.
 
 namespace derelict.Extensions
 {
@@ -22,11 +25,11 @@ namespace derelict.Extensions
             { new byte[] { 0x52, 0x49, 0x46, 0x46 }, DecodeWebP },
         };
 
-        public static void GetSpriteAssetDimensions(this SpriteAsset asset)
+        public static Size GetSpriteAssetDimensions(string path)
         {
             int maxMagicBytesLength = imageFormatDecoders.Keys.OrderByDescending(x => x.Length).First().Length;
             byte[] magicBytes = new byte[maxMagicBytesLength];
-            using (var stream = new FileStream(asset.AssetPath, FileMode.Open))
+            using (var stream = new FileStream(path, FileMode.Open))
             {
                 using (var binaryReader = new BinaryReader(stream, Encoding.UTF8))
                 {
@@ -38,14 +41,13 @@ namespace derelict.Extensions
                         {
                             if (StartsWith(magicBytes, kvPair.Key))
                             {
-                                asset.SpriteSize = kvPair.Value(binaryReader);
-                                return;
+                                return kvPair.Value(binaryReader);
                             }
                         }
                     }
-                    throw new ArgumentException(errorMessage, "binaryReader");
                 }
             }
+            throw new ArgumentException("Invalid sprite image type");
         }
 
         private static bool StartsWith(byte[] thisBytes, byte[] thatBytes)
@@ -143,6 +145,16 @@ namespace derelict.Extensions
             var height = binaryReader.ReadUInt16() & 0b00_11111111111111; // 14 bits height
 
             return new Size(width, height);
+        }
+
+        public static Texture2D ToTexture2D(this SpriteAsset asset)
+        {
+            Texture2D ret;
+            using(var stream = new FileStream(asset.AssetPath, FileMode.Open))
+            {
+                ret = Texture2D.FromStream(Derelict.graphicsDevice, stream);
+            }
+            return ret;
         }
     }
 }

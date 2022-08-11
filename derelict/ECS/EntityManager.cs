@@ -4,21 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace derelict.ECS
 {
     public class EntityManager
     {
-        readonly string contentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content");
-        public Entity GetPlayer()
+        public Entity SetPlayer()
         {
             var player = new Entity();
             player.AttachComponent(new Sprite
             {
                 SpriteName = "Slime",
-                SpritePath = Path.Combine(contentPath, "Player", "slime.png"),
-                Height = 
+                Texture = 
             });
+            return player;
         }
     }
 }
