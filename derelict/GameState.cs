@@ -10,6 +10,7 @@ namespace derelict
     {
         StartUp,
         LoadMap,
+        InMenu,
         ExitGame
     }
     internal class GameState

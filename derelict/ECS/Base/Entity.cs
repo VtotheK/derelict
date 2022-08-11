@@ -8,7 +8,6 @@ namespace derelict.ECS
     public class Entity
     {
         public int ID { get; set; }
-        public string Name { get; set; }
         public List<Component> Components;
         public void AttachComponent(Component component)
         {
