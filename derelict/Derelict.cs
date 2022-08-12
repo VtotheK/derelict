@@ -50,14 +50,16 @@ namespace derelict
 
             var keys = Keyboard.GetState().GetPressedKeys();
             gameManager.HandleInput(keys);
+            gameManager.UpdateWorldState();
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            var deltaTime = gameTime.ElapsedGameTime.Milliseconds;
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            gameManager.DrawEntities(_spriteBatch);
+            gameManager.DrawEntities(_spriteBatch, deltaTime);
             base.Draw(gameTime);
         }
     }

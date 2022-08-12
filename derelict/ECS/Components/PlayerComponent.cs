@@ -11,6 +11,6 @@ namespace derelict.ECS.Components
     {
         public int Health { get; set; }
         public float Speed { get; set; }
-        public Vector2 Direction { get; set; }
+        public Vector2 InputDirection { get; set; }
     }
 }

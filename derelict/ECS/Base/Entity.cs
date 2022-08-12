@@ -8,13 +8,24 @@ using Microsoft.Xna.Framework;
 
 namespace derelict.ECS
 {
+    [Flags]
+    public enum ComponentBitField
+    {
+        AIComponent = 1,
+        NPCComponent = 2,
+        PlayerComponent = 4,
+        PositionComponent = 8,
+        SpriteComponent = 16
+    }
+
     public class Entity
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public List<Component> Components;
-
+        public ComponentBitField ComponentBits { get; set; }
         public Entity()
         {
+            ID = Guid.NewGuid().ToString();
             Components = new List<Component>();
         }
         public void AttachComponent(Component component)
@@ -36,7 +47,7 @@ namespace derelict.ECS
                 .FirstOrDefault();
         }
 
-        public void Render(SpriteBatch spriteBatch)
+        public void Render(SpriteBatch spriteBatch, int deltaTime)
         {
             var spriteComp = Components.Where(t => t.GetType() == typeof(SpriteComponent)).FirstOrDefault();
             var posComp = Components.Where(t => t.GetType() == typeof(PositionComponent)).FirstOrDefault();

@@ -40,7 +40,7 @@ namespace derelict
                 {
                     Health = 100,
                     Speed = 0.0f,
-                    Direction = new Vector2(0.0f, 0.0f),
+                    InputDirection = new Vector2(0.0f, 0.0f),
                 });
             Player = player;
             Entities.Add(player);
@@ -51,6 +51,10 @@ namespace derelict
         public Map GetCurrentMap()
         {
             return currentMap;
+        }
+
+        internal void UpdateWorldState()
+        {
         }
 
         public void HandleInput(Keys[] pressedKeys)
@@ -77,15 +81,15 @@ namespace derelict
                     x -= 1.0f;
                 }
             }
-            Player.GetComponent<PlayerComponent>().Direction = new Vector2(x, y);
+            Player.GetComponent<PlayerComponent>().InputDirection = new Vector2(x, y);
         }
 
-        internal void DrawEntities(SpriteBatch spriteBatch)
+        internal void DrawEntities(SpriteBatch spriteBatch, int deltaTime)
         {
             spriteBatch.Begin();
             foreach(var entity in Entities)
             {
-                entity.Render(spriteBatch);
+                entity.Render(spriteBatch, deltaTime);
             }
             spriteBatch.End();
         }
