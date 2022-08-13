@@ -17,13 +17,15 @@ namespace derelict
         private MapManager mapManager;
         private AssetHandler assetHandler;
         private Entity Player { get; set; }
-        private List<Entity> Entities { get; set; }
+        private Dictionary<string, Entity> Entities { get; set; }
+        private List<string> ActiveEntities { get; set; }
         public GameManager()
         {
             mapManager = new MapManager();
             assetHandler = new AssetHandler();
             currentMap = mapManager.GetInitialMap();
-            Entities = new List<Entity>();
+            Entities = new Dictionary<string, Entity>();
+            ActiveEntities = new List<string>();
         }
         public void SetPlayer()
         {
@@ -43,7 +45,8 @@ namespace derelict
                     InputDirection = new Vector2(0.0f, 0.0f),
                 });
             Player = player;
-            Entities.Add(player);
+            Entities.Add(player.ID, player);
+            ActiveEntities.Add(player.ID);
         }
 
         public void LoadAssets() { assetHandler.LoadAssetData(); }
@@ -55,6 +58,10 @@ namespace derelict
 
         internal void UpdateWorldState()
         {
+            foreach(var entity in Entities)
+            {
+
+            }
         }
 
         public void HandleInput(Keys[] pressedKeys)
@@ -87,9 +94,9 @@ namespace derelict
         internal void DrawEntities(SpriteBatch spriteBatch, int deltaTime)
         {
             spriteBatch.Begin();
-            foreach(var entity in Entities)
+            foreach(var id in ActiveEntities)
             {
-                entity.Render(spriteBatch, deltaTime);
+                Entities[id].Render(spriteBatch, deltaTime);
             }
             spriteBatch.End();
         }
