@@ -15,21 +15,30 @@ namespace derelict.Engine
     public class GameEngine
     {
         private PlayerSystem PlayerSystem;
+        private AISystem AISystem;
+        private NPCSystem NPCSystem;
+        private PositionSystem PositionSystem;
+        private SpriteSystem SpriteSystem;
         private Map CurrentMap;
         private MapManager MapManager;
-        private AssetHandler AssetHandler;
+        private AssetLoader AssetHandler;
         private Entity Player { get; set; }
         private Dictionary<string, Entity> Entities { get; set; }
         private List<string> ActiveEntities { get; set; }
         public GameEngine()
         {
             MapManager = new MapManager();
-            AssetHandler = new AssetHandler();
+            AssetHandler = new AssetLoader();
             CurrentMap = MapManager.GetInitialMap();
             Entities = new Dictionary<string, Entity>();
             ActiveEntities = new List<string>();
             PlayerSystem = new PlayerSystem();
+            AISystem = new AISystem();
+            NPCSystem = new NPCSystem();
+            PositionSystem = new PositionSystem();
+            SpriteSystem = new SpriteSystem();
         }
+
         public void SetPlayer()
         {
             var playerSprite = AssetHandler.GetPlayerSpriteAsset(); //TODO Shitty

@@ -8,7 +8,7 @@ using derelict.Extensions;
 
 namespace derelict.Assets
 {
-    public class AssetHandler
+    public class AssetLoader
     {
         readonly string AssetDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content");
         const string PLAYERASSETID = "player_";
@@ -16,9 +16,13 @@ namespace derelict.Assets
         public List<SpriteAsset> SpriteAssets { get; set; }
         private Dictionary<string[], Action<string>> AssetHandlers = new Dictionary<string[], Action<string>>();
 
-        public AssetHandler()
+        public AssetLoader()
         {
             SpriteAssets = new List<SpriteAsset>();
+        }
+
+        private void AddSpriteFilters()
+        {
             AssetHandlers.Add(new string[] { ".png", ".jpeg", ".jpg" }, LoadSprite);
             AssetHandlers.Add(new string[] { ".txt", ".doc", ".docx", ".md" }, LoadText);
         }
