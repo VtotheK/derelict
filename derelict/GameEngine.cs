@@ -1,63 +1,74 @@
-﻿using derelict.Levels;
-using derelict.ECS;
-using derelict.ECS.Components;
-using derelict.Assets;
-using derelict.Extensions;
+﻿using System.Collections.Generic;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System;
+using derelict.Levels;
+using derelict.ECS;
+using derelict.ECS.Components;
+using derelict.ECS.System;
+using derelict.Assets;
+using derelict.Extensions;
 
-namespace derelict
+namespace derelict.Engine
 {
-    internal class GameManager
+    public class GameEngine
     {
-        private Map currentMap;
-        private MapManager mapManager;
-        private AssetHandler assetHandler;
+        private PlayerSystem PlayerSystem;
+        private Map CurrentMap;
+        private MapManager MapManager;
+        private AssetHandler AssetHandler;
         private Entity Player { get; set; }
         private Dictionary<string, Entity> Entities { get; set; }
         private List<string> ActiveEntities { get; set; }
-        public GameManager()
+        public GameEngine()
         {
-            mapManager = new MapManager();
-            assetHandler = new AssetHandler();
-            currentMap = mapManager.GetInitialMap();
+            MapManager = new MapManager();
+            AssetHandler = new AssetHandler();
+            CurrentMap = MapManager.GetInitialMap();
             Entities = new Dictionary<string, Entity>();
             ActiveEntities = new List<string>();
+            PlayerSystem = new PlayerSystem();
         }
         public void SetPlayer()
         {
-            var playerSprite = assetHandler.GetPlayerSpriteAsset(); //TODO Shitty
+            var playerSprite = AssetHandler.GetPlayerSpriteAsset(); //TODO Shitty
             var player = new Entity();
             player.AttachComponents(
-                new SpriteComponent
+                new SpriteComponent(player)
                 {
                     Texture = playerSprite.ToTexture2D(),
                     SpriteSize = playerSprite.SpriteSize
                 },
-                new PositionComponent { EntityPosition = new Vector2(0.0f, 0.0f) },
-                new PlayerComponent
+                new PositionComponent(player) { EntityPosition = new Vector2(0.0f, 0.0f) },
+                new PlayerComponent(player)
                 {
                     Health = 100,
                     Speed = 0.0f,
                     InputDirection = new Vector2(0.0f, 0.0f),
+                },
+                new InputComponent(player)
+                { 
+                    IsInvertedYAxis = false
                 });
             Player = player;
             Entities.Add(player.ID, player);
             ActiveEntities.Add(player.ID);
         }
 
-        public void LoadAssets() { assetHandler.LoadAssetData(); }
+        public void LoadAssets() { AssetHandler.LoadAssetData(); }
 
         public Map GetCurrentMap()
         {
-            return currentMap;
+            return CurrentMap;
         }
 
         internal void UpdateWorldState()
         {
+            var pos = Player.GetComponent<PositionComponent>();
+            var direction = Player.GetComponent<PlayerComponent>();
+            pos.EntityPosition = new Vector2(pos.EntityPosition.X + direction.InputDirection.X,
+                                             pos.EntityPosition.Y + direction.InputDirection.Y);
             foreach(var entity in Entities)
             {
 
@@ -71,19 +82,19 @@ namespace derelict
             foreach(var key in pressedKeys)
             {
                 //TODO Change value not hard coded
-                if(key == Keys.W)
-                {
-                    y += 1.0f;
-                }
-                if(key == Keys.S)
+                if(key == Keys.W || key == Keys.Up)
                 {
                     y -= 1.0f;
                 }
-                if(key == Keys.D)
+                if(key == Keys.S || key == Keys.Down)
+                {
+                    y += 1.0f;
+                }
+                if(key == Keys.D || key == Keys.Right)
                 {
                     x += 1.0f;
                 }
-                if(key == Keys.A)
+                if(key == Keys.A || key == Keys.Left)
                 {
                     x -= 1.0f;
                 }

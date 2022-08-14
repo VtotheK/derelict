@@ -59,7 +59,7 @@ namespace derelict.Assets
             }
             catch(ArgumentException e)
             {
-                Debug.WriteLine($"Could not read size of sprite file at ${filePath}.");
+                Debug.WriteLine($"Could not read size of sprite file at ${filePath}. Exception {e.Message}");
             }
         }
 

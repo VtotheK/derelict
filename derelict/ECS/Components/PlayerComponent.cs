@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using derelict.ECS.Components.Base;
+using derelict.ECS.System;
 
 namespace derelict.ECS.Components
 {
@@ -12,5 +9,10 @@ namespace derelict.ECS.Components
         public int Health { get; set; }
         public float Speed { get; set; }
         public Vector2 InputDirection { get; set; }
+
+        public PlayerComponent(Entity entity) : base(entity)
+        {
+            PlayerSystem.RegisterComponent(this);
+        }
     }
 }

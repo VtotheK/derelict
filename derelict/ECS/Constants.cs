@@ -10,13 +10,15 @@ namespace derelict.ECS
     {
         public static class Components
         {
-            public const int MaxComponentCount = 5;
+            //TODO Replace with function call to return the amount of flags
+            public const int MaxComponentCount = 6;
 
             public const int AIComponent = 0;
             public const int NPCComponent = 1;
             public const int PlayerComponent = 2;
             public const int PositionComponent = 3;
             public const int SpriteComponent = 4;
+            public const int InputComponent = 5;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using derelict.ECS.Components.Base;
 using derelict.ECS.Components;
 using derelict.ECS;
 
@@ -15,6 +16,7 @@ namespace derelict.ECS.Utils
                 case (PlayerComponent): return Constants.Components.PlayerComponent;
                 case (PositionComponent): return Constants.Components.PositionComponent;
                 case (SpriteComponent): return Constants.Components.SpriteComponent;
+                case (InputComponent): return Constants.Components.InputComponent;
                 default: return -1;
             }
         }
@@ -26,6 +28,7 @@ namespace derelict.ECS.Utils
             else if (type == typeof(PlayerComponent)) { return Constants.Components.PlayerComponent; }
             else if (type == typeof(PositionComponent)) { return Constants.Components.PositionComponent; }
             else if (type == typeof(SpriteComponent)) { return Constants.Components.SpriteComponent; }
+            else if (type == typeof(InputComponent)) { return Constants.Components.InputComponent; }
             else { return -1; }
             }
 

@@ -2,11 +2,16 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace derelict.ECS
+namespace derelict.ECS.Components.Base
 {
 
-    public class Component
+    public abstract class Component
     {
-        public Entity entity;
+        public Entity Entity { get; init; }
+        public bool IsActive = true;
+        public Component(Entity entity)
+        {
+            Entity = entity;
+        }
     }
 }

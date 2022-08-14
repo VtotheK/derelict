@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using derelict.ECS.Utils;
 using derelict.ECS.Components;
+using derelict.ECS.Components.Base;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -38,11 +40,8 @@ namespace derelict.ECS
 
         public T GetComponent<T>() where T : Component
         {
-            //TODO Fix
-            return (T) Components
-                .Where(comp => comp.GetType() == typeof(T))
-                .Select(comp => comp)
-                .FirstOrDefault();
+            int index = ComponentRegister.GetComponentIndex(typeof(T));
+            return (T)Components[index];
         }
 
         public bool HasComponent<T>() where T : Component
@@ -56,8 +55,10 @@ namespace derelict.ECS
             //TODO Make this not stupid
             //var spriteComp = Components.Where(t => t.GetType() == typeof(SpriteComponent)).FirstOrDefault();
             var spriteComp = Components[4];
-            var posComp = Components[3];
+            var posComp = Components[3] as PositionComponent;
             //var posComp = Components.Where(t => t.GetType() == typeof(PositionComponent)).FirstOrDefault();
+            Debug.WriteLine($"X Position: {posComp.EntityPosition.X}");
+            Debug.WriteLine($"Y Position: {posComp.EntityPosition.Y}");
             if(spriteComp != null || posComp == null)
             {
                 var sprite = spriteComp as SpriteComponent;

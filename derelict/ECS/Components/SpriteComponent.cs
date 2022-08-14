@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using Microsoft.Xna.Framework.Graphics;
+using derelict.ECS.Components.Base;
+using derelict.ECS.System;
 
 namespace derelict.ECS.Components
 {
@@ -16,5 +13,10 @@ namespace derelict.ECS.Components
         public bool IsVisible { get; set; }
         public Texture2D Texture { get; set; }
         public int Zindex { get; set; } = 1; 
+
+        public SpriteComponent(Entity entity) : base(entity)
+        {
+            SpriteSystem.RegisterComponent(this);
+        }
     }
 }

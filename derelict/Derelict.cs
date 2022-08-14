@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using derelict;
 using derelict.ECS;
 using derelict.Assets;
+using derelict.Engine;
 
 namespace derelict
 {
@@ -14,7 +15,7 @@ namespace derelict
         public static GraphicsDevice graphicsDevice;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private GameManager gameManager;
+        private GameEngine gameManager;
         private GameState gameState;
 
         public Derelict()
@@ -31,7 +32,7 @@ namespace derelict
 
         protected override void LoadContent()
         {
-            gameManager = new GameManager();
+            gameManager = new GameEngine();
             gameState = new GameState
             {
                 CurrentState = RunningState.StartUp
