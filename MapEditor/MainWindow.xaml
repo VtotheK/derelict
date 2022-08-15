@@ -6,6 +6,18 @@
         xmlns:local="clr-namespace:MapEditor"
         mc:Ignorable="d"
         Title="Derelict Map Editor" Height="1080" Width="1920">
+    <Window.Resources>
+        <DataTemplate x:Key="spritePanel">
+            <Grid Margin="0,0,5,0" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ListBoxItem Grid.Column="0" HorizontalAlignment="Stretch"/>
+                <ListBoxItem Grid.Column="1" HorizontalAlignment="Stretch"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="9*"/>
@@ -34,27 +46,19 @@
             </Menu>
         </DockPanel>
         <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Grid.Column="0"/>
-        <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto">
         <StackPanel Grid.Row="1" Grid.Column="1">
             <Label Content="Tilemap" HorizontalAlignment="Center"/>
             <Border BorderThickness="4" BorderBrush="Red">
-                    <WrapPanel MinHeight="400" x:Name="TilesetPanel">
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                        <Button Width="200" Height="200" Content="Teststst" />
-                    </WrapPanel>
+                <ListBox x:Name="SpritePanel" Width="Auto" ItemTemplate="{StaticResource spritePanel}">
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Test1"></MenuItem>
+                            <MenuItem Header="Test2"></MenuItem>
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+                </ListBox>
             </Border>
         </StackPanel>
-    </ScrollViewer>
         <Button Grid.Row="2" Grid.Column="2" Content="askfdj"/>
     </Grid>
 </Window>
