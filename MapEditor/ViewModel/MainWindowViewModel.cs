@@ -5,7 +5,7 @@ using MapEditor.Model;
 
 namespace MapEditor.ViewModel
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : ObservableObject
     {
         public List<Sprite> Sprites;
 
