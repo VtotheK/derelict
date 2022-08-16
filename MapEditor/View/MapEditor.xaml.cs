@@ -23,12 +23,6 @@ namespace MapEditor
         public MainWindow()
         {
             InitializeComponent();
-            TestfillSpritePanel();
-        }
-
-        private void TestfillSpritePanel()
-        {
-            SpritePanel.Items.Add()
         }
     }
 }
