@@ -5,7 +5,7 @@ namespace MapEditor.Service
 {
     public static class DialogService
     {
-        public static List<Sprite> GetSprites()
+        public static List<SpriteModel> GetSprites()
         {
             return null;
         }

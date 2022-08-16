@@ -20,7 +20,7 @@
         <StackPanel Grid.Column="0" Grid.Row="0">
             <WrapPanel>
                 <Label Margin="0,0,10,0" Content="File name" HorizontalAlignment="Left"/>
-                <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+                <TextBlock VerticalAlignment="Center" Text="{Binding Mode}"/>
             </WrapPanel>
         </StackPanel>
     </Grid>

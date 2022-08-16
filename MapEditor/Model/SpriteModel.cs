@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MapEditor.Model
 {
-    public class Sprite
+    public class SpriteModel
     {
         public string Name { get; set; }
         public string Path { get; set; }

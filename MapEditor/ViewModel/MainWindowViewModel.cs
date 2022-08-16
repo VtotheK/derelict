@@ -9,12 +9,12 @@ namespace MapEditor.ViewModel
 {
     public class MainWindowViewModel 
     {
-        public List<Sprite> Sprites;
+        public List<SpriteModel> Sprites;
         public RelayCommand SpriteSheetOpenDialog;
 
         public MainWindowViewModel()
         {
-            Sprites = new List<Sprite>();
+            Sprites = new List<SpriteModel>();
             SpriteSheetOpenDialog = new RelayCommand(GetSpritesWithDialog);
         }
 
