@@ -8,7 +8,6 @@ namespace MapEditor.ViewModel
     public class SpriteSplitterViewModel
     {
         public SpriteSplitterModel Model { get; private set; }
-
         public SpriteSplitterViewModel() 
         {
             Model = new SpriteSplitterModel();

@@ -8,14 +8,64 @@ namespace MapEditor.Model
 {
     public class SpriteSplitterModel : ObservableObject
     {
-        private string _filepath;
+
+        private string? _spriteWidth;
+        private string? _spriteHeight;
+        private string? _filepath;
+        private int _sheetHeight;
+        private int _sheetWidth;
+
+        public SpriteSplitterModel() { }
+
         public string FilePath
         {
             get { return _filepath; }
             set
             {
-                FilePath = value;
+                _filepath = value;
                 OnPropertyChanged(ref _filepath, value);
+            }
+        }
+        public string SpriteWidth
+        {
+            get { return _spriteWidth; }
+            set
+            {
+                _spriteWidth = value;
+                OnPropertyChanged(ref _spriteWidth, value);
+            }
+        }
+        public string SpriteHeight
+        {
+            get { return _spriteHeight; }
+            set
+            {
+                _spriteHeight = value;
+                OnPropertyChanged(ref _spriteHeight, value);
+            }
+        }
+        public int SheetHeight
+        {
+            get
+            {
+                return _sheetHeight;
+            }
+            set
+            {
+                _sheetHeight = value;
+                OnPropertyChanged(ref _sheetHeight, value);
+            }
+        }
+        public int SheetWidth
+        {
+            get
+            {
+                return _sheetWidth;
+            }
+            set
+            {
+                _sheetHeight = value;
+                OnPropertyChanged(ref _sheetWidth, value);
             }
         }
     }

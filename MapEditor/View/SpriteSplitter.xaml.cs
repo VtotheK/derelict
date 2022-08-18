@@ -12,7 +12,6 @@ namespace MapEditor.View
         SpriteSplitterViewModel viewModel;
         public SpriteSplitter(SpriteSplitterModel model)
         {
-            InitializeComponent();
             if(model != null) 
             {
                 viewModel = new SpriteSplitterViewModel(model);
@@ -22,6 +21,7 @@ namespace MapEditor.View
                 viewModel = new SpriteSplitterViewModel();
             }
             DataContext = viewModel;
+            InitializeComponent();
         }
     }
 }

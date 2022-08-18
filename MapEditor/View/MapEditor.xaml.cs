@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MapEditor.Model;
+using MapEditor.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,8 @@ namespace MapEditor
         public MainWindow()
         {
             InitializeComponent();
+            var s = new SpriteSplitter(new SpriteSplitterModel() { FilePath = "test filepath", SpriteHeight = "10", SpriteWidth = "20"});
+            s.Show();
         }
     }
 }
