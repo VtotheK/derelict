@@ -1,5 +1,6 @@
 ﻿using MapEditor.Model;
 using MapEditor.View;
+using MapEditor.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,7 @@ namespace MapEditor
         public MainWindow()
         {
             InitializeComponent();
-            var s = new SpriteSplitter(new SpriteSplitterModel() { FilePath = "test filepath", SpriteHeight = "10", SpriteWidth = "20"});
-            s.Show();
+            DataContext = new MapEditorViewModel();
         }
     }
 }

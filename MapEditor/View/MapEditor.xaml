@@ -41,7 +41,7 @@
                     <MenuItem Header="Exit"/>
                 </MenuItem>
                 <MenuItem Header="Tileset">
-                    <MenuItem Header="Open" Command="{Binding }"/>
+                    <MenuItem Header="Open" Command="{Binding SpriteSheetOpenDialog}"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

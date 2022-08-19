@@ -8,18 +8,20 @@ using MapEditor.View;
 
 namespace MapEditor.ViewModel
 {
-    public class MainWindowViewModel 
+    public class MapEditorViewModel 
     {
         public List<SpriteModel> Sprites;
-        public RelayCommand SpriteSheetOpenDialog;
+        public RelayCommand _spriteSheetOpenDialog;
 
-        public MainWindowViewModel()
+        public MapEditorViewModel()
         {
             Sprites = new List<SpriteModel>();
-            SpriteSheetOpenDialog = new RelayCommand(GetSpritesWithDialog);
+            SpriteSheetOpenDialog = new RelayCommand(SpriteFileDialog);
         }
 
-        private void GetSpritesWithDialog()
+        public RelayCommand SpriteSheetOpenDialog { get => _spriteSheetOpenDialog; set => _spriteSheetOpenDialog = value; }
+
+        public void SpriteFileDialog()
         {
             var sprites = DialogService.GetSprites();
         }

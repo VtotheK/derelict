@@ -16,6 +16,7 @@ namespace MapEditor.Model
         private int _sheetWidth;
 
         public SpriteSplitterModel() { }
+        public List<SpriteModel>  SpriteModels { get; set; }
 
         public string FilePath
         {

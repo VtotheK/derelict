@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
 using MapEditor.Model;
 using MapEditor.ViewModel;
 
@@ -9,7 +10,7 @@ namespace MapEditor.View
     /// </summary>
     public partial class SpriteSplitter : Window
     {
-        SpriteSplitterViewModel viewModel;
+        public SpriteSplitterViewModel viewModel;
         public SpriteSplitter(SpriteSplitterModel model)
         {
             if(model != null) 
@@ -22,6 +23,12 @@ namespace MapEditor.View
             }
             DataContext = viewModel;
             InitializeComponent();
+        }
+
+        private void AcceptOnlyNumbers(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            var regex = new Regex("^[0-9]*$");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
