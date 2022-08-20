@@ -10,12 +10,11 @@ namespace MapEditor.ViewModel
 {
     public class MapEditorViewModel 
     {
-        public List<SpriteModel> Sprites;
+        public MapEditorModel Model { get; private set; }
         public RelayCommand _spriteSheetOpenDialog;
-
         public MapEditorViewModel()
         {
-            Sprites = new List<SpriteModel>();
+            Model = new MapEditorModel();
             SpriteSheetOpenDialog = new RelayCommand(SpriteFileDialog);
         }
 
@@ -24,6 +23,10 @@ namespace MapEditor.ViewModel
         public void SpriteFileDialog()
         {
             var sprites = DialogService.GetSprites();
+            foreach(var sprite in sprites)
+            {
+                Model.Sprites.Add(sprite);
+            }
         }
     }
 }

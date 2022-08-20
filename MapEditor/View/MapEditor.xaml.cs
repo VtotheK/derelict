@@ -25,8 +25,8 @@ namespace MapEditor
     {
         public MainWindow()
         {
-            InitializeComponent();
             DataContext = new MapEditorViewModel();
+            InitializeComponent();
         }
     }
 }

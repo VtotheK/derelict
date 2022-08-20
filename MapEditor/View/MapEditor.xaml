@@ -7,16 +7,6 @@
         mc:Ignorable="d"
         Title="Derelict Map Editor" Height="1080" Width="1920">
     <Window.Resources>
-        <DataTemplate x:Key="spritePanel">
-            <Grid Margin="0,0,5,0" HorizontalAlignment="Left">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Sp}"/>
-                <ListBoxItem Grid.Column="1" HorizontalAlignment="Stretch"/>
-            </Grid>
-        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -49,13 +39,14 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <Label Content="Tilemap" HorizontalAlignment="Center"/>
             <Border BorderThickness="4" BorderBrush="Red">
-                <ListBox x:Name="SpritePanel" Width="Auto" ItemTemplate="{StaticResource spritePanel}">
-                    <ListBox.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Test1"></MenuItem>
-                            <MenuItem Header="Test2"></MenuItem>
-                        </ContextMenu>
-                    </ListBox.ContextMenu>
+                <ListBox x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Model.Sprites}">
+                    <ListBox.ItemTemplate>
+                    <DataTemplate>
+                            <StackPanel>
+                                <Image Source="{Binding SpriteSource}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </Border>
         </StackPanel>

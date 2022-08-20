@@ -71,7 +71,7 @@ namespace MapEditor.Service
                 spriteModels.Add(new SpriteModel
                 {
                     SpriteImage = originalTileMap.Clone(rect, originalFormat),
-                    Name = $"sprite_{seq.ToString()}"
+                    Name = $"sprite_{seq++.ToString()}"
                 });
             }
             return spriteModels;
