@@ -24,44 +24,45 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="0">
+        <StackPanel x:Name="FilepathStackpanel" Grid.Column="0" Grid.Row="0">
             <Border BorderThickness="1" BorderBrush="Black">
-                <WrapPanel>
+                <WrapPanel MaxWidth="{Binding ActualWidth, ElementName=FilepathStackpanel}">
                     <Label Margin="0,0,10,0" Content="File path:" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Model.FilePath}"/>
+                    <TextBlock MaxWidth="170" VerticalAlignment="Center" Text="{Binding Model.FileName}"/>
                 </WrapPanel>
             </Border>
+
             <Border BorderThickness="1" BorderBrush="Black">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/> 
-                        <ColumnDefinition Width="0.2*"/> 
-                        <ColumnDefinition Width="1*"/> 
-                    </Grid.ColumnDefinitions>
-                <WrapPanel Grid.Column="0">
-                    <Label Margin="0,0,10,0" Content="Sheet height:" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Model.SheetHeight}"/>
-                </WrapPanel>
-                <WrapPanel Grid.Column="2">
-                    <Label Margin="0,0,10,0" Content="Sheet width:" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Model.SheetWidth}"/>
-                </WrapPanel>
-                </Grid>
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="0.05*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Margin="0,0,10,0" Content="Sheet height:" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Model.SheetHeight}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" Content="Sheet width:" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Model.SheetWidth}"/>
+                        </Grid>
             </Border>
         </StackPanel>
+
         <Image Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Stretch="Uniform" Source="{Binding Model.FilePath}"/>
-        <TextBlock Text="{Binding Model.FilePath}"/>
 
         <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="1">
             <WrapPanel>
                 <Label MinWidth="90" Content="Sprite width:"/>
-                <TextBox Text="{Binding Model.SpriteWidth}"  PreviewTextInput="AcceptOnlyNumbers" />
+                <TextBox MinWidth="60" Text="{Binding Model.SpriteWidth, Mode=TwoWay}"  PreviewTextInput="AcceptOnlyNumbers" />
             </WrapPanel>
             <WrapPanel Grid.Column="0" Margin="0,0,0,10">
                 <Label MinWidth="90" Content="Sprite height:"/>
-                <TextBox Text="{Binding Model.SpriteHeight}" PreviewTextInput="AcceptOnlyNumbers" />
+                <TextBox MinWidth="60" Text="{Binding Model.SpriteHeight, Mode=TwoWay}" PreviewTextInput="AcceptOnlyNumbers" />
             </WrapPanel>
-            <Button Margin="0,0,0,10" Content="Preview"/>
+            <Button Margin="0,0,0,10" Content="Preview" Click="PreviewSpriteSplit"/>
             <Button Content="SPLIT"/>
         </StackPanel>
     </Grid>

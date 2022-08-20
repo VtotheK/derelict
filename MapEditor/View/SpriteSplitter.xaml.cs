@@ -28,7 +28,12 @@ namespace MapEditor.View
         private void AcceptOnlyNumbers(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             var regex = new Regex("^[0-9]*$");
-            e.Handled = regex.IsMatch(e.Text);
+            e.Handled = !regex.IsMatch(e.Text);
+        }
+
+        private void PreviewSpriteSplit(object sender, RoutedEventArgs e)
+        {
+            viewModel.CreatePreviewTilemap();
         }
     }
 }

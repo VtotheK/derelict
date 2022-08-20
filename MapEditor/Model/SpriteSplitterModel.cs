@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,10 @@ namespace MapEditor.Model
     public class SpriteSplitterModel : ObservableObject
     {
 
-        private string? _spriteWidth;
-        private string? _spriteHeight;
-        private string? _filepath;
+        private int _spriteWidth;
+        private int _spriteHeight;
+        private string? _filePath;
+        private string? _fileName;
         private int _sheetHeight;
         private int _sheetWidth;
         private BitmapImage _tileSet;
@@ -22,12 +24,23 @@ namespace MapEditor.Model
 
         public string FilePath
         {
-            get { return _filepath; }
+            get { return _filePath; }
             set
             {
-                _filepath = value;
+                _filePath = value;
                 TileSet = new BitmapImage(new Uri(FilePath, UriKind.Absolute));
-                OnPropertyChanged(ref _filepath, value);
+                FileName = Path.GetFileName(value);
+                OnPropertyChanged(ref _filePath, value);
+            }
+        }
+
+        public string FileName
+        {
+            get => _fileName;
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged(ref _fileName, value);
             }
         }
 
@@ -37,11 +50,13 @@ namespace MapEditor.Model
             set
             {
                 _tileSet = value;
+                SheetHeight = (int)TileSet.Height;
+                SheetWidth = (int)TileSet.Width;
                 OnPropertyChanged(ref _tileSet, value);
             }
         }
 
-        public string SpriteWidth
+        public int SpriteWidth
         {
             get { return _spriteWidth; }
             set
@@ -50,7 +65,7 @@ namespace MapEditor.Model
                 OnPropertyChanged(ref _spriteWidth, value);
             }
         }
-        public string SpriteHeight
+        public int SpriteHeight
         {
             get { return _spriteHeight; }
             set

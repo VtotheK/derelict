@@ -11,8 +11,8 @@ namespace MapEditor.Service
         public static List<SpriteModel> GetSprites()
         {
             var dialog = new OpenFileDialog();
-            dialog.Filter = "Image files (.jpg)|*.jpg|(.png)|*.png";
             dialog.DefaultExt = ".png";
+            dialog.Filter = "Jpeg files (.jpg)|*.jpg|PNG Files (.png)|*.png";
 
             string filePath;
 
