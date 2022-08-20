@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using MapEditor.Model;
 using MapEditor.Service;
 
@@ -16,13 +18,22 @@ namespace MapEditor.ViewModel
 
         public SpriteSplitterViewModel(SpriteSplitterModel model)
         {
-
+            splitService = new SpritesplitService();
             Model = model;
         }
 
         public void CreatePreviewTilemap()
         {
-            var previewTilemap = splitService.CreatePreviewTilemap(Model.TileSet, Model.SheetWidth, Model.SpriteHeight);
+            try
+            {
+                var ret = splitService.CreatePreviewTilemap(Model.TileSet, Model.SheetWidth, Model.SpriteHeight);
+                Model.TileSet = ret;
+
+            }
+            catch(ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
+            }
         }
     }
 }
