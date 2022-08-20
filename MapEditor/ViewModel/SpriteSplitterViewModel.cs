@@ -9,7 +9,6 @@ namespace MapEditor.ViewModel
 {
     public class SpriteSplitterViewModel
     {
-        public int test = 0;
         public SpriteSplitterModel Model { get; private set; }
         private SpritesplitService splitService { get; set; }
         public SpriteSplitterViewModel() 
@@ -30,6 +29,19 @@ namespace MapEditor.ViewModel
             {
                 var tiles = splitService.CreatePreviewTilemap(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
                 Model.UITileSet = tiles;
+            }
+            catch(ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
+            }
+        }
+
+        public void ConfirmSpirteSplit()
+        {
+            try
+            {
+                Model.SpriteModels = splitService.GetSprites(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
+                
             }
             catch(ArgumentException e)
             {

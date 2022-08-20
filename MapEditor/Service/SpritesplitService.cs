@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using MapEditor.Extensions;
+using MapEditor.Model;
 
 namespace MapEditor.Service
 {
@@ -21,6 +22,16 @@ namespace MapEditor.Service
             return bitmap.ToBitmapImage();
         }
 
+        public List<SpriteModel> GetSprites(BitmapImage originalTileMap, int spriteWidth, int spriteHeight)
+        {
+            if(originalTileMap.Width < spriteWidth) { throw new ArgumentException("Sprite width can't be larger than the tilemap width."); }
+            if(originalTileMap.Height < spriteHeight) { throw new ArgumentException("Sprite height can't be larger than the tilemap height."); }
+
+            var bitmap = originalTileMap.ToBitmap();
+            var rects = GetTilemapSplits(bitmap, spriteWidth, spriteHeight);
+            return GetSpritesFromTilemap(bitmap, rects);
+        }
+        
         private void CreatePreviewFromRectangles(Bitmap bitmap, List<Rectangle> rects)
         {
             var graphics = Graphics.FromImage(bitmap);
@@ -48,6 +59,22 @@ namespace MapEditor.Service
                 currentHeight += spriteHeight;
             }
             return rectangles;
+        }
+
+        private List<SpriteModel> GetSpritesFromTilemap(Bitmap originalTileMap, List<Rectangle> rects)
+        {
+            var spriteModels = new List<SpriteModel>();
+            var originalFormat = originalTileMap.PixelFormat;
+            var seq = 0;
+            foreach(var rect in rects)
+            {
+                spriteModels.Add(new SpriteModel
+                {
+                    SpriteImage = originalTileMap.Clone(rect, originalFormat),
+                    Name = $"sprite_{seq.ToString()}"
+                });
+            }
+            return spriteModels;
         }
     }
 }

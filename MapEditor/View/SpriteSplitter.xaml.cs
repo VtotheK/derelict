@@ -35,5 +35,11 @@ namespace MapEditor.View
         {
             viewModel.CreatePreviewTilemap();
         }
+
+        private void ConfirmSpriteSplit(object sender, RoutedEventArgs e)
+        {
+            viewModel.ConfirmSpirteSplit();
+            this.Close();
+        }
     }
 }
