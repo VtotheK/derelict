@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace MapEditor.Model
 {
@@ -14,6 +15,7 @@ namespace MapEditor.Model
         private string? _filepath;
         private int _sheetHeight;
         private int _sheetWidth;
+        private BitmapImage _tileSet;
 
         public SpriteSplitterModel() { }
         public List<SpriteModel>  SpriteModels { get; set; }
@@ -24,9 +26,21 @@ namespace MapEditor.Model
             set
             {
                 _filepath = value;
+                TileSet = new BitmapImage(new Uri(FilePath, UriKind.Absolute));
                 OnPropertyChanged(ref _filepath, value);
             }
         }
+
+        public BitmapImage TileSet
+        {
+            get => _tileSet;
+            set
+            {
+                _tileSet = value;
+                OnPropertyChanged(ref _tileSet, value);
+            }
+        }
+
         public string SpriteWidth
         {
             get { return _spriteWidth; }
