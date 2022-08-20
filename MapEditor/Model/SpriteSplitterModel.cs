@@ -17,7 +17,8 @@ namespace MapEditor.Model
         private string? _fileName;
         private int _sheetHeight;
         private int _sheetWidth;
-        private BitmapImage _tileSet;
+        private BitmapImage _UItileSet;
+        private BitmapImage _originalTileSet;
 
         public SpriteSplitterModel() { }
         public List<SpriteModel>  SpriteModels { get; set; }
@@ -28,7 +29,8 @@ namespace MapEditor.Model
             set
             {
                 _filePath = value;
-                TileSet = new BitmapImage(new Uri(FilePath, UriKind.Absolute));
+                UITileSet = new BitmapImage(new Uri(FilePath, UriKind.Absolute));
+                OriginalTileSet = new BitmapImage(new Uri(FilePath, UriKind.Absolute));
                 FileName = Path.GetFileName(value);
                 OnPropertyChanged(ref _filePath, value);
             }
@@ -44,15 +46,20 @@ namespace MapEditor.Model
             }
         }
 
-        public BitmapImage TileSet
+        public BitmapImage OriginalTileSet
         {
-            get => _tileSet;
+            get => _originalTileSet;
+            private set => _originalTileSet = value;
+        }
+        public BitmapImage UITileSet
+        {
+            get => _UItileSet;
             set
             {
-                _tileSet = value;
-                SheetHeight = (int)TileSet.Height;
-                SheetWidth = (int)TileSet.Width;
-                OnPropertyChanged(ref _tileSet, value);
+                _UItileSet = value;
+                SheetHeight = (int)UITileSet.Height;
+                SheetWidth = (int)UITileSet.Width;
+                OnPropertyChanged(ref _UItileSet, value);
             }
         }
 

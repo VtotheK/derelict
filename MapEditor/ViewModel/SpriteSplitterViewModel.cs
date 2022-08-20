@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using MapEditor.Model;
 using MapEditor.Service;
 
@@ -8,6 +9,7 @@ namespace MapEditor.ViewModel
 {
     public class SpriteSplitterViewModel
     {
+        public int test = 0;
         public SpriteSplitterModel Model { get; private set; }
         private SpritesplitService splitService { get; set; }
         public SpriteSplitterViewModel() 
@@ -26,8 +28,8 @@ namespace MapEditor.ViewModel
         {
             try
             {
-                Model.TileSet = splitService.CreatePreviewTilemap(Model.TileSet, Model.SheetWidth, Model.SpriteHeight ?? 0);
-
+                var tiles = splitService.CreatePreviewTilemap(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
+                Model.UITileSet = tiles;
             }
             catch(ArgumentException e)
             {
