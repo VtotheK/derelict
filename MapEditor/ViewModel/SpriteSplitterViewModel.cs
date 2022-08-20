@@ -26,8 +26,7 @@ namespace MapEditor.ViewModel
         {
             try
             {
-                var ret = splitService.CreatePreviewTilemap(Model.TileSet, Model.SheetWidth, Model.SpriteHeight);
-                Model.TileSet = ret;
+                Model.TileSet = splitService.CreatePreviewTilemap(Model.TileSet, Model.SheetWidth, Model.SpriteHeight ?? 0);
 
             }
             catch(ArgumentException e)

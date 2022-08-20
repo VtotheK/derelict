@@ -11,8 +11,8 @@ namespace MapEditor.Model
     public class SpriteSplitterModel : ObservableObject
     {
 
-        private int _spriteWidth;
-        private int _spriteHeight;
+        private int? _spriteWidth;
+        private int? _spriteHeight;
         private string? _filePath;
         private string? _fileName;
         private int _sheetHeight;
@@ -56,7 +56,7 @@ namespace MapEditor.Model
             }
         }
 
-        public int SpriteWidth
+        public int? SpriteWidth
         {
             get { return _spriteWidth; }
             set
@@ -65,7 +65,7 @@ namespace MapEditor.Model
                 OnPropertyChanged(ref _spriteWidth, value);
             }
         }
-        public int SpriteHeight
+        public int? SpriteHeight
         {
             get { return _spriteHeight; }
             set
