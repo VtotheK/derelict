@@ -43,23 +43,26 @@
                     <ListView ItemsSource="{Binding Model.SpriteCollections}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                        <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Sprites}">
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <Image Source="{Binding SpriteSource}"/>
-                                        <Label Content="{Binding Name}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                                <StackPanel>
+                                <Label Content="{Binding CollectionName}"/>
+                                <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Sprites}">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <Image Source="{Binding SpriteSource}"/>
+                                                <Label Content="{Binding Name}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
                 </Border>
             </StackPanel>

@@ -19,16 +19,16 @@ namespace MapEditor.ViewModel
 
         public SpriteSplitterViewModel(SpriteSplitterModel model)
         {
-            splitService = new SpritesplitService();
             Model = model;
+            splitService = new SpritesplitService();
         }
 
         public void CreatePreviewTilemap()
         {
             try
             {
-                var tiles = splitService.CreatePreviewTilemap(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
-                Model.UITileSet = tiles;
+                var previewImage = splitService.CreatePreviewTilemap(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
+                Model.UITileSet = previewImage;
             }
             catch(ArgumentException e)
             {
@@ -40,8 +40,8 @@ namespace MapEditor.ViewModel
         {
             try
             {
-                Model.SpriteModels = splitService.GetSprites(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
-                
+                Model.SpriteCollection.Sprites = splitService.GetSprites(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
+                Model.SpriteCollection.CollectionName = "TEST BLABLA";
             }
             catch(ArgumentException e)
             {

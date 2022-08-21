@@ -22,19 +22,10 @@ namespace MapEditor.ViewModel
 
         public void SpriteFileDialog()
         {
-            var sprites = DialogService.GetSprites();
-            if(sprites == null) { return; }
-            var spriteModels = new List<SpriteModel>();
+            var spriteCollection = DialogService.GetSpriteCollection();
+            if(spriteCollection == null) { return; }
 
-            foreach(var sprite in sprites)
-            {
-                spriteModels.Add(sprite);
-            }
-
-            Model.SpriteCollections.Add(new SpriteCollection
-            {
-                Sprites = spriteModels
-            });
+            Model.SpriteCollections.Add(spriteCollection);
         }
     }
 }

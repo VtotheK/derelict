@@ -20,9 +20,12 @@ namespace MapEditor.Model
         private BitmapImage _UItileSet;
         private BitmapImage _originalTileSet;
 
-        public SpriteSplitterModel() { }
-        public List<SpriteModel>  SpriteModels { get; set; }
+        public SpriteSplitterModel() 
+        {
+            SpriteCollection = new SpriteCollection();
+        }
 
+        public SpriteCollection SpriteCollection { get; set; }
         public string FilePath
         {
             get { return _filePath; }
