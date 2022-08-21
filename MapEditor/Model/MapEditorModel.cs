@@ -12,26 +12,26 @@ namespace MapEditor.Model
 {
     public class MapEditorModel : INotifyPropertyChanged
     {
-        public ObservableCollection<SpriteModel> _sprites;
+        public ObservableCollection<SpriteCollection> _spriteCollection;
         public MapEditorModel()
         {
-            _sprites = new ObservableCollection<SpriteModel>();
-            _sprites.CollectionChanged += SpriteCollectionChanged;
+            _spriteCollection = new ObservableCollection<SpriteCollection>();
+            _spriteCollection.CollectionChanged += SpriteCollectionChanged;
         }
 
-        public ObservableCollection<SpriteModel> Sprites
+        public ObservableCollection<SpriteCollection> SpriteCollections
         {
-            get => _sprites;
+            get => _spriteCollection;
             set
             {
-                _sprites = value;
+                _spriteCollection = value;
                 SpriteCollectionChanged(this, null);
             }
         }
 
         private void SpriteCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_sprites)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_spriteCollection)));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

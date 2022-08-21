@@ -36,20 +36,34 @@
             </Menu>
         </DockPanel>
         <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Grid.Column="0"/>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <Label Content="Tilemap" HorizontalAlignment="Center"/>
-            <Border BorderThickness="4" BorderBrush="Red">
-                <ListBox x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Model.Sprites}">
-                    <ListBox.ItemTemplate>
-                    <DataTemplate>
-                            <StackPanel>
-                                <Image Source="{Binding SpriteSource}"/>
-                            </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <StackPanel Grid.Row="1" Grid.Column="1" CanVerticallyScroll="True">
+                <Label Content="Sprites" HorizontalAlignment="Center"/>
+                <Border BorderThickness="4" BorderBrush="Red">
+                    <ListView ItemsSource="{Binding Model.SpriteCollections}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                        <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Sprites}">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Image Source="{Binding SpriteSource}"/>
+                                        <Label Content="{Binding Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Border>
-        </StackPanel>
+                    </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+            </StackPanel>
+        </Grid>
         <Button Grid.Row="2" Grid.Column="2" Content="askfdj"/>
     </Grid>
 </Window>

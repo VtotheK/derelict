@@ -5,7 +5,12 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "derelict", "derelict\derelict.csproj", "{1DB68D78-73A9-4874-AC88-44892895D990}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditor", "MapEditor\MapEditor.csproj", "{962C6C2A-7C79-4779-A9F0-DF0C056D0D96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapEditor", "MapEditor\MapEditor.csproj", "{962C6C2A-7C79-4779-A9F0-DF0C056D0D96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{929B3715-01D7-4468-99B1-94D6A1370D58}"
+	ProjectSection(SolutionItems) = preProject
+		notes.txt = notes.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
