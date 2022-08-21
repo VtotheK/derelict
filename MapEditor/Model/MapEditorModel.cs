@@ -12,14 +12,14 @@ namespace MapEditor.Model
 {
     public class MapEditorModel : INotifyPropertyChanged
     {
-        public ObservableCollection<SpriteCollection> _spriteCollection;
+        public ObservableCollection<SpriteCollectionModel> _spriteCollection;
         public MapEditorModel()
         {
-            _spriteCollection = new ObservableCollection<SpriteCollection>();
+            _spriteCollection = new ObservableCollection<SpriteCollectionModel>();
             _spriteCollection.CollectionChanged += SpriteCollectionChanged;
         }
 
-        public ObservableCollection<SpriteCollection> SpriteCollections
+        public ObservableCollection<SpriteCollectionModel> SpriteCollections
         {
             get => _spriteCollection;
             set

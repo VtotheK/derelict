@@ -8,7 +8,7 @@ namespace MapEditor.Service
 {
     public static class DialogService
     {
-        public static SpriteCollection GetSpriteCollection()
+        public static SpriteCollectionModel GetSpriteCollection()
         {
             var dialog = new OpenFileDialog();
             dialog.DefaultExt = ".png";

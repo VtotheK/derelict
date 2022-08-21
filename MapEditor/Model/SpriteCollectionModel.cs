@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MapEditor.Model
 {
-    public class SpriteCollection : ObservableObject
+    public class SpriteCollectionModel : ObservableObject
     {
         public readonly string Id;
        
         private string _collectionName;
         private List<SpriteModel> _sprites;
 
-        public SpriteCollection()
+        public SpriteCollectionModel()
         {
             Sprites = new List<SpriteModel>();
             Id = new Guid().ToString();

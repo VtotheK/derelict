@@ -38,10 +38,24 @@ namespace MapEditor.ViewModel
 
         public void ConfirmSpirteSplit()
         {
+            if(Model.SpriteHeight <= 0)
+            {
+                MessageBox.Show("Sprite height have to over 0.", "Error", MessageBoxButton.OK);
+
+            }
+            if( Model.SpriteWidth <= 0)
+            { 
+                MessageBox.Show("Sprite width have to over 0.", "Error", MessageBoxButton.OK);
+
+            }
+            if(String.IsNullOrEmpty(Model.SpriteCollection.CollectionName))
+            {
+                MessageBox.Show("Sprite collection must have name.", "Error", MessageBoxButton.OK);
+            }
+
             try
             {
                 Model.SpriteCollection.Sprites = splitService.GetSprites(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
-                Model.SpriteCollection.CollectionName = "TEST BLABLA";
             }
             catch(ArgumentException e)
             {

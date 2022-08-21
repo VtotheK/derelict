@@ -22,10 +22,10 @@ namespace MapEditor.Model
 
         public SpriteSplitterModel() 
         {
-            SpriteCollection = new SpriteCollection();
+            SpriteCollection = new SpriteCollectionModel();
         }
 
-        public SpriteCollection SpriteCollection { get; set; }
+        public SpriteCollectionModel SpriteCollection { get; set; }
         public string FilePath
         {
             get { return _filePath; }
