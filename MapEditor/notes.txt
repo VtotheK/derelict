@@ -1,0 +1,3 @@
+TODO:
+How to add tiles to canvas, and have them occupy only space needed for the tile?
+Removing tile from canvas, how is ir handled in the backend? 
