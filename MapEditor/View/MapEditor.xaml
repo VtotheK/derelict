@@ -18,7 +18,8 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height=".5*"/>
         </Grid.RowDefinitions>
-
+        <Canvas x:Name="TileCanvas" Grid.Column="0" Grid.Row="1">
+        </Canvas>
         <DockPanel Grid.Row="0" Grid.ColumnSpan="3">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Map">
