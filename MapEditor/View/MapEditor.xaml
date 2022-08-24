@@ -45,11 +45,11 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Border BorderThickness="2" Grid.Row="1" Grid.Column="0"/>
-        <Grid Grid.Row="2" VerticalAlignment="Top" Grid.Column="1">
-            <StackPanel  Grid.Row="1" Grid.Column="1" CanVerticallyScroll="True">
+        <Border BorderThickness="0,0,2,0" Grid.Row="1" Grid.Column="0"/>
+        <Grid VerticalAlignment="Stretch" Grid.Row="2"  Grid.Column="1">
+            <Border>
+            <StackPanel Grid.Row="1" Grid.Column="1" CanVerticallyScroll="True">
                 <Label Content="Sprites" HorizontalAlignment="Center"/>
-                <Border>
                     <ListView ItemsSource="{Binding Model.SpriteCollections}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -74,8 +74,8 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                </Border>
             </StackPanel>
+            </Border>
         </Grid>
         <Border Grid.Column="0" Grid.Row="3">
             <Slider Grid.Row="3" Grid.Column="0"/>
