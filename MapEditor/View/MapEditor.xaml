@@ -82,25 +82,26 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <StackPanel>
-                    <WrapPanel>
-                        <Label Width="70" Content="Map height"/>
-                        <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapHeight}"/>
-                        <TextBox VerticalAlignment="Center" Text="{Binding Model.MapHeight}"/>
-                    </WrapPanel>
-                    <WrapPanel>
-                        <Label Width="70" Content="Map width"/>
-                        <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapWidth}"/>
-                        <TextBox VerticalAlignment="Center" Text="{Binding Model.MapWidth}"/>
-                    </WrapPanel>
-                </StackPanel>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="5,5,5,5">
+                        <WrapPanel>
+                            <Label Width="70" Content="Map height"/>
+                            <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapHeight, Mode=TwoWay}"/>
+                            <TextBox VerticalAlignment="Center" Text="{Binding Model.MapHeight, Mode=TwoWay}" KeyUp="TextBox_KeyUp"/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Width="70" Content="Map width"/>
+                            <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapWidth, Mode=TwoWay}"/>
+                            <TextBox VerticalAlignment="Center" Text="{Binding Model.MapWidth, Mode=TwoWay}" KeyUp="TextBox_KeyUp"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
         </Border>
         <Border Grid.Column="1" Grid.Row="3">

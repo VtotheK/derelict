@@ -3,6 +3,7 @@ using MapEditor.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -18,17 +19,16 @@ namespace MapEditor
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = new MapEditorViewModel();
-                
+
             var model = new MapEditorModel
             {
                 MapHeight = 50,
                 MapWidth = 150,
                 TileHeight = 16,
                 TileWidth = 16,
-                MapSizeChanged = ViewModel.OnMapSizeChanged
             };
 
+            ViewModel = new MapEditorViewModel(model);
             ViewModel.NewMapEvent += GenerateEmptyMap;
             ViewModel.ResetMap();
 
@@ -37,6 +37,7 @@ namespace MapEditor
 
         private void GenerateEmptyMap()
         {
+            TileCanvas.Children.Clear();
             int MapHeight = ViewModel.Model.MapHeight;
             int MapWidth = ViewModel.Model.MapWidth;
             int TileHeight = ViewModel.Model.TileWidth;
@@ -70,6 +71,17 @@ namespace MapEditor
         {
             //var rect = (Rectangle) sender;
             //throw new NotImplementedException();
+        }
+
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                var textBox = (TextBox)sender;
+                var prop = TextBox.TextProperty;
+                var binding = BindingOperations.GetBindingExpression(textBox, prop);
+                binding?.UpdateSource();
+            }
         }
     }
 }

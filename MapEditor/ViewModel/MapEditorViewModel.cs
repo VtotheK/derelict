@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -26,11 +27,18 @@ namespace MapEditor.ViewModel
         {
             Model = new MapEditorModel();
             InitCommands();
+            Subscribe();
         }
         public MapEditorViewModel(MapEditorModel model)
         {
             Model = model;
             InitCommands();
+            Subscribe();
+        }
+
+        public void Subscribe()
+        {
+            Model.MapSizeChanged += OnMapSizeChanged;
         }
 
         public void InitCommands()
@@ -62,6 +70,11 @@ namespace MapEditor.ViewModel
             }
             Model.Map = new Rectangle[Model.MapWidth, Model.MapHeight];
             NewMapEvent?.Invoke();
+        }
+
+        public void OnMapSizeChanged()
+        {
+            ResetMap();
         }
     }
 }

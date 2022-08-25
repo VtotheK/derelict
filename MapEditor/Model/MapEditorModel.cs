@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 
 namespace MapEditor.Model
 {
+    public delegate void MapSizeChangedEventHandler();
     public class MapEditorModel : ObservableObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event MapSizeChangedEventHandler MapSizeChanged;
         #region Sprite panel
         public ObservableCollection<SpriteCollectionModel> _spriteCollection;
         public MapEditorModel()
@@ -45,7 +47,6 @@ namespace MapEditor.Model
         private int _tileWidth;
         private int _tileHeight;
 
-        public Action MapSizeChanged { get; set; }
 
         public Rectangle[,] Map
         {
@@ -64,7 +65,7 @@ namespace MapEditor.Model
             {
                 _mapHeight = value;
                 OnPropertyChanged(ref _mapHeight, value);
-                MapSizeChanged();
+                MapSizeChanged?.Invoke();
             }
         }
 
@@ -75,7 +76,7 @@ namespace MapEditor.Model
             {
                 _mapWidth = value;
                 OnPropertyChanged(ref _mapWidth, value);
-                MapSizeChanged();
+                MapSizeChanged?.Invoke();
             }
         }
 
