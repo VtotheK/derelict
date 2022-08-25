@@ -45,6 +45,8 @@ namespace MapEditor.Model
         private int _tileWidth;
         private int _tileHeight;
 
+        public Action MapSizeChanged { get; set; }
+
         public Rectangle[,] Map
         {
             get => _map;
@@ -62,6 +64,7 @@ namespace MapEditor.Model
             {
                 _mapHeight = value;
                 OnPropertyChanged(ref _mapHeight, value);
+                MapSizeChanged();
             }
         }
 
@@ -72,6 +75,7 @@ namespace MapEditor.Model
             {
                 _mapWidth = value;
                 OnPropertyChanged(ref _mapWidth, value);
+                MapSizeChanged();
             }
         }
 

@@ -17,16 +17,22 @@ namespace MapEditor
         MapEditorViewModel ViewModel;
         public MainWindow()
         {
-            ViewModel = new MapEditorViewModel(new MapEditorModel
+            InitializeComponent();
+            ViewModel = new MapEditorViewModel();
+                
+            var model = new MapEditorModel
             {
                 MapHeight = 50,
-                MapWidth = 150
-            } );
+                MapWidth = 150,
+                TileHeight = 16,
+                TileWidth = 16,
+                MapSizeChanged = ViewModel.OnMapSizeChanged
+            };
+
             ViewModel.NewMapEvent += GenerateEmptyMap;
             ViewModel.ResetMap();
 
             DataContext = ViewModel;
-            InitializeComponent();
         }
 
         private void GenerateEmptyMap()

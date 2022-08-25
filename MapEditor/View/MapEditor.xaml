@@ -92,13 +92,13 @@
                 <StackPanel>
                     <WrapPanel>
                         <Label Width="70" Content="Map height"/>
-                        <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0"/>
-                        <TextBox VerticalAlignment="Center" Text="1234"/>
+                        <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapHeight}"/>
+                        <TextBox VerticalAlignment="Center" Text="{Binding Model.MapHeight}"/>
                     </WrapPanel>
                     <WrapPanel>
                         <Label Width="70" Content="Map width"/>
-                        <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0"/>
-                        <TextBox VerticalAlignment="Center" Text="1234"/>
+                        <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapWidth}"/>
+                        <TextBox VerticalAlignment="Center" Text="{Binding Model.MapWidth}"/>
                     </WrapPanel>
                 </StackPanel>
             </Grid>
