@@ -65,6 +65,8 @@ namespace MapEditor
                         Fill = new SolidColorBrush(Color.FromArgb(0,0,0,0))
                     };
                     ViewModel.Model.Map[x,y].MouseEnter += Tilemap_MouseEnter;
+                    ViewModel.Model.Map[x,y].MouseLeave += Tilemap_MouseLeave;
+                    ViewModel.Model.Map[x,y].MouseLeftButtonDown += Tilemap_MouseLeftButtonDown;
                     Canvas.SetLeft(ViewModel.Model.Map[x,y], x * TileWidth);
                     Canvas.SetTop(ViewModel.Model.Map[x,y], y * TileHeight);
                     TileCanvas.Children.Add(ViewModel.Model.Map[x,y]);
@@ -74,9 +76,21 @@ namespace MapEditor
             TileCanvas.Width = MapWidth * 16;
         }
 
+        private void Tilemap_MouseLeave(object sender, MouseEventArgs e)
+        {
+        }
+
+        private void Tilemap_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        { 
+            if(currentTile == null) { return; }
+            var rect = (Rectangle)sender;
+            rect.Fill = new ImageBrush(currentTile);
+        }
+
         private void Tilemap_MouseEnter(object sender, MouseEventArgs e)
         {
             var rect = (Rectangle)sender;
+            rect.Fill = new SolidColorBrush(Color.FromArgb(20, 0, 0, 0));
         }
 
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
