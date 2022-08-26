@@ -15,6 +15,7 @@ namespace MapEditor.ViewModel
     public class MapEditorViewModel 
     {
         public event MapChangedDelegate NewMapEvent;
+        public event MapChangedDelegate ResizeMapEvent;
 
         public MapEditorModel Model { get; private set; }
         public RelayCommand _spriteSheetOpenDialog;
@@ -74,7 +75,7 @@ namespace MapEditor.ViewModel
 
         public void OnMapSizeChanged()
         {
-            ResetMap();
+            ResizeMapEvent?.Invoke();
         }
     }
 }

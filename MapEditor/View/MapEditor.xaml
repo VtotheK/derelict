@@ -55,7 +55,7 @@
                             <DataTemplate>
                                 <StackPanel>
                                 <Label Content="{Binding CollectionName}"/>
-                                <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Sprites}">
+                                <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Sprites}" SelectionChanged="FuckChanged">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel />
@@ -63,8 +63,8 @@
                                     </ListView.ItemsPanel>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel>
-                                                <Image Source="{Binding SpriteSource}"/>
+                                            <StackPanel Background="Red" MouseLeftButtonDown="Tile_Selection">
+                                                <Image Source="{Binding SpriteSource}" MouseEnter="Tile_MouseEnter" MouseLeave="Tile_MouseLeave"/>
                                                 <Label Content="{Binding Name}"/>
                                             </StackPanel>
                                         </DataTemplate>
@@ -92,12 +92,12 @@
                     <StackPanel Margin="5,5,5,5">
                         <WrapPanel>
                             <Label Width="70" Content="Map height"/>
-                            <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapHeight, Mode=TwoWay}"/>
+                            <Slider VerticalAlignment="Center" Minimum="1" Maximum="200" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapHeight, Mode=TwoWay}"/>
                             <TextBox VerticalAlignment="Center" Text="{Binding Model.MapHeight, Mode=TwoWay}" KeyUp="TextBox_KeyUp"/>
                         </WrapPanel>
                         <WrapPanel>
                             <Label Width="70" Content="Map width"/>
-                            <Slider VerticalAlignment="Center" Minimum="1" Maximum="10000" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapWidth, Mode=TwoWay}"/>
+                            <Slider VerticalAlignment="Center" Minimum="1" Maximum="200" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.MapWidth, Mode=TwoWay}"/>
                             <TextBox VerticalAlignment="Center" Text="{Binding Model.MapWidth, Mode=TwoWay}" KeyUp="TextBox_KeyUp"/>
                         </WrapPanel>
                     </StackPanel>

@@ -41,16 +41,18 @@ namespace MapEditor.ViewModel
             if(Model.SpriteHeight <= 0)
             {
                 MessageBox.Show("Sprite height have to over 0.", "Error", MessageBoxButton.OK);
-
+                return;
             }
             if( Model.SpriteWidth <= 0)
             { 
                 MessageBox.Show("Sprite width have to over 0.", "Error", MessageBoxButton.OK);
+                return;
 
             }
             if(String.IsNullOrEmpty(Model.SpriteCollection.CollectionName))
             {
                 MessageBox.Show("Sprite collection must have name.", "Error", MessageBoxButton.OK);
+                return;
             }
 
             try
