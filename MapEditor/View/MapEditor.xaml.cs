@@ -58,26 +58,63 @@ namespace MapEditor
                 for(int x = 0; x < MapWidth; ++x)
                 {
 
-                    ViewModel.Model.Map[x, y] = new Rectangle
+                    var rect = new Rectangle
                     {
                         Width = 16,
                         Height = 16,
                         Fill = new SolidColorBrush(Color.FromArgb(0,0,0,0))
                     };
+                    ViewModel.Model.Map[x, y] = rect;
                     ViewModel.Model.Map[x,y].MouseEnter += Tilemap_MouseEnter;
                     ViewModel.Model.Map[x,y].MouseLeave += Tilemap_MouseLeave;
                     ViewModel.Model.Map[x,y].MouseLeftButtonDown += Tilemap_MouseLeftButtonDown;
                     Canvas.SetLeft(ViewModel.Model.Map[x,y], x * TileWidth);
                     Canvas.SetTop(ViewModel.Model.Map[x,y], y * TileHeight);
                     TileCanvas.Children.Add(ViewModel.Model.Map[x,y]);
+                    AddBorderToRect(rect, x * TileWidth, y * TileHeight);
                 }
             }
             TileCanvas.Height = MapHeight * 16;
             TileCanvas.Width = MapWidth * 16;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rect">The border that will be drawn sizes</param>
+        /// <param name="x">X coordinate of the upper left coordinate on the rect border</param>
+        /// <param name="y">Y coordinate of the upper left coordinate on the rect border</param>
+        private void AddBorderToRect(Rectangle rect, int x, int y)
+        {
+            int rectHeight = (int)rect.Height;
+            int rectWidth = (int)rect.Width;
+            (int xFrom, int yFrom, int xTo, int yTo) [] coords = new[]
+            {
+                (x, y, x + rectWidth, y),
+                (x + rectWidth, y, x + rectWidth, y + rectHeight ),
+                (x + rectWidth, y + rectHeight, x, y + rectHeight),
+                (x, y + rectHeight, x, y),
+            };
+
+            foreach(var coord in coords)
+            {
+                var line = new Line()
+                {
+                    Stroke = Brushes.LightGray,
+                    StrokeThickness = 1,
+                    X1 = coord.xFrom,
+                    Y1 = coord.yFrom,
+                    X2 = coord.xTo,
+                    Y2 = coord.yTo,
+                    SnapsToDevicePixels = true
+                };
+
+                TileCanvas.Children.Add(line);
+            }
+        }
 
         private void Tilemap_MouseLeave(object sender, MouseEventArgs e)
         {
+
         }
 
         private void Tilemap_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
