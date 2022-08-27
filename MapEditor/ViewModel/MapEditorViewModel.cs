@@ -39,7 +39,7 @@ namespace MapEditor.ViewModel
 
         public void Subscribe()
         {
-            Model.MapSizeChanged += OnMapSizeChanged;
+            Model.EditorMap.MapSizeChanged += OnMapSizeChanged;
         }
 
         public void InitCommands()
@@ -65,16 +65,24 @@ namespace MapEditor.ViewModel
 
         public void ResetMap()
         {
-            if(Model.Map != null)
+            if(Model.EditorMap.Map != null)
             {
                 //TODO ask user confirmation
             }
-            Model.Map = new Rectangle[Model.MapWidth, Model.MapHeight];
+            Model.EditorMap.Map = new Rectangle[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
             NewMapEvent?.Invoke();
         }
 
         public void OnMapSizeChanged()
         {
+            var map = new Rectangle[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
+            for (int y = 0; y < Model.EditorMap.MapHeight; ++y)
+            {
+                for (int x = 0; x < Model.EditorMap.MapWidth; ++x)
+                {
+                    map[x, y] = Model.EditorMap.Map[x, y];
+                }
+            }
             ResizeMapEvent?.Invoke();
         }
     }

@@ -11,11 +11,9 @@ using System.Threading.Tasks;
 
 namespace MapEditor.Model
 {
-    public delegate void MapSizeChangedEventHandler();
     public class MapEditorModel : ObservableObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        public event MapSizeChangedEventHandler MapSizeChanged;
         #region Sprite panel
         public ObservableCollection<SpriteCollectionModel> _spriteCollection;
         public MapEditorModel()
@@ -41,61 +39,14 @@ namespace MapEditor.Model
         #endregion
 
         #region Map editor 
-        private Rectangle[,] _map;
-        private int _mapHeight;
-        private int _mapWidth;
-        private int _tileWidth;
-        private int _tileHeight;
-
-
-        public Rectangle[,] Map
+        private EditorMap _editorMap;
+        public EditorMap EditorMap
         {
-            get => _map;
+            get => _editorMap;
             set
             {
-                _map = value;
-                OnPropertyChanged(ref _map, value);
-            }
-        }
-
-        public int MapHeight
-        {
-            get => _mapHeight;
-            set
-            {
-                _mapHeight = value;
-                OnPropertyChanged(ref _mapHeight, value);
-                MapSizeChanged?.Invoke();
-            }
-        }
-
-        public int MapWidth
-        {
-            get => _mapWidth;
-            set
-            {
-                _mapWidth = value;
-                OnPropertyChanged(ref _mapWidth, value);
-                MapSizeChanged?.Invoke();
-            }
-        }
-
-        public int TileHeight
-        {
-            get => _tileHeight;
-            set
-            {
-                _tileHeight = value;
-                OnPropertyChanged(ref _tileHeight, value);
-            }
-        }
-        public int TileWidth
-        {
-            get => _tileWidth;
-            set
-            {
-                _tileWidth = value;
-                OnPropertyChanged(ref _tileWidth, value);
+                _editorMap = value;
+                OnPropertyChanged(ref _editorMap, value);
             }
         }
         #endregion
