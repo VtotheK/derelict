@@ -12,7 +12,7 @@ namespace MapEditor.Service
         {
             var dialog = new OpenFileDialog();
             dialog.DefaultExt = ".png";
-            dialog.Filter = "Jpeg files (.jpg)|*.jpg|PNG Files (.png)|*.png";
+            dialog.Filter = "PNG Files (.png)|*.png|Jpeg files (.jpg)|*.jpg";
 
             string filePath;
 
@@ -28,6 +28,8 @@ namespace MapEditor.Service
             });
 
             splitter.ShowDialog();
+            if (splitter.viewModel.Model.SpriteCollection.Sprites.Count == 0)
+                return null;
             return splitter.viewModel.Model.SpriteCollection;
         }
     }

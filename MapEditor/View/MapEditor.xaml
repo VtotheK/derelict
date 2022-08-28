@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Derelict Map Editor" Height="1080" Width="1920">
     <Window.Resources>
+        <BitmapImage x:Key="DeleteSpriteModelIcon" UriSource="../Resources/Images/sprite-model-delete.png"/>
         <Style TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Lightblue"/>
             <Setter Property="BorderThickness" Value="10"/>
@@ -66,11 +67,16 @@
                                             <DataTemplate>
                                                 <Grid>
                                                     <Grid.RowDefinitions>
-                                                        <RowDefinition Height="10"/>
-                                                        <RowDefinition Height="50"/>
-                                                        <RowDefinition Height="10"/>
+                                                        <RowDefinition Height="20"/>
+                                                        <RowDefinition Height="100"/>
+                                                        <RowDefinition Height="20"/>
                                                     </Grid.RowDefinitions>
-                                                    <Button Grid.Row="0" HorizontalAlignment="Left" Content="X" Command="{Binding DataContext.RemoveSpriteFromSpriteCollectionCommand, ElementName=MapEditor}" CommandParameter="{Binding}"/>
+                                                    <WrapPanel>
+                                                        <Button Grid.Row="0" Width="20" Height="20" HorizontalAlignment="Left" Command="{Binding DataContext.RemoveSpriteFromSpriteCollectionCommand, ElementName=MapEditor}" CommandParameter="{Binding}">
+                                                            <Image Source="../Resources/Images/sprite-model-delete.png"/>
+                                                        </Button>
+                                                        <Label HorizontalAlignment="Left" Content="Delete" FontSize="10"/>
+                                                    </WrapPanel>
                                                     <Image Grid.Row="1" Source="{Binding SpriteSource}" Stretch="Uniform" MouseEnter="Tile_MouseEnter" MouseLeave="Tile_MouseLeave"/>
                                                     <TextBox Grid.Row="2" Text="{Binding Name}"/>
                                                 </Grid>
