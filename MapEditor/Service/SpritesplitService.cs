@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using MapEditor.Extensions;
@@ -22,7 +23,7 @@ namespace MapEditor.Service
             return bitmap.ToBitmapImage();
         }
 
-        public List<SpriteModel> GetSprites(BitmapImage originalTileMap, int spriteWidth, int spriteHeight)
+        public ObservableCollection<SpriteModel> GetSprites(BitmapImage originalTileMap, int spriteWidth, int spriteHeight)
         {
             if(originalTileMap.Width < spriteWidth) { throw new ArgumentException("Sprite width can't be larger than the tilemap width."); }
             if(originalTileMap.Height < spriteHeight) { throw new ArgumentException("Sprite height can't be larger than the tilemap height."); }
@@ -61,9 +62,9 @@ namespace MapEditor.Service
             return rectangles;
         }
 
-        private List<SpriteModel> GetSpritesFromTilemap(Bitmap originalTileMap, List<Rectangle> rects)
+        private ObservableCollection<SpriteModel> GetSpritesFromTilemap(Bitmap originalTileMap, List<Rectangle> rects)
         {
-            var spriteModels = new List<SpriteModel>();
+            var spriteModels = new ObservableCollection<SpriteModel>();
             var originalFormat = originalTileMap.PixelFormat;
             var seq = 0;
             foreach(var rect in rects)

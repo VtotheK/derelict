@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MapEditor.Model
 {
-    public class SpriteCollectionModel : ObservableObject
+    public class SpriteCollectionModel : ObservableObject, INotifyPropertyChanged
     {
         public readonly string Id;
        
         private string _collectionName;
-        private List<SpriteModel> _sprites;
+        private ObservableCollection<SpriteModel> _sprites;
 
         public SpriteCollectionModel()
         {
-            Sprites = new List<SpriteModel>();
+            Sprites = new ObservableCollection<SpriteModel>();
             Id = new Guid().ToString();
         }
 
-        public List<SpriteModel> Sprites
+        public ObservableCollection<SpriteModel> Sprites
         {
             get => _sprites;
             set
@@ -28,6 +30,7 @@ namespace MapEditor.Model
                 OnPropertyChanged(ref _sprites, value);
             }
         }
+
         public string CollectionName
         {
             get => _collectionName;

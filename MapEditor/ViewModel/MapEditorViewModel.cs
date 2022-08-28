@@ -63,7 +63,16 @@ namespace MapEditor.ViewModel
             var spriteModel = (SpriteModel)model;
             if (spriteModel == null)
                 throw new ArgumentException(nameof(SpriteModel));
-            Debug.WriteLine("Sprite removed");
+           
+            foreach (var collection in Model.SpriteCollections)
+            {
+                var toDelete = collection.Sprites.Where(sprite => sprite.Id == spriteModel.Id).FirstOrDefault();
+                if(toDelete != null)
+                {
+                    collection.Sprites.Remove(toDelete);
+                    break;
+                }
+            }
         }
 
         public void SpriteFileDialog()

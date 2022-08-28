@@ -9,11 +9,22 @@ using MapEditor.Extensions;
 
 namespace MapEditor.Model
 {
-    public class SpriteModel : ObservableObject
+    public class SpriteModel : ObservableObject, IEquatable<SpriteModel>
     {
         private Bitmap _spriteImage;
         private string _name;
         private string _path;
+        readonly Guid _id; 
+
+        public Guid Id
+        {
+            get => _id;
+        }
+
+        public SpriteModel()
+        {
+            _id = Guid.NewGuid();
+        }
 
         public BitmapSource SpriteSource 
         { 
@@ -38,5 +49,18 @@ namespace MapEditor.Model
                 OnPropertyChanged(ref _name, value);
             }
         }
+
+        public override bool Equals(object other)
+        {
+            if (other.GetType() != typeof(SpriteModel)) return false;
+            return other == null ? false : Id == ((SpriteModel)other).Id;
+        }
+        
+        public bool Equals(SpriteModel? other)
+        {
+            if (other == null) return false;
+            return Id == other.Id;
+        }
+
     }
 }
