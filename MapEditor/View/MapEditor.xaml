@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MapEditor"
+        x:Name="MapEditor"
         mc:Ignorable="d"
         Title="Derelict Map Editor" Height="1080" Width="1920">
     <Window.Resources>
@@ -48,33 +49,39 @@
         <Border BorderThickness="0,0,2,0" Grid.Row="1" Grid.Column="0"/>
         <Grid VerticalAlignment="Stretch" Grid.Row="2"  Grid.Column="1">
             <Border>
-            <StackPanel Grid.Row="1" Grid.Column="1" CanVerticallyScroll="True">
-                <Label Content="Sprites" HorizontalAlignment="Center"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" CanVerticallyScroll="True">
+                    <Label Content="Sprites" HorizontalAlignment="Center"/>
                     <ListView ItemsSource="{Binding Model.SpriteCollections}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                <Label Content="{Binding CollectionName}"/>
-                                <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Sprites}" SelectionChanged="FuckChanged">
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel />
-                                        </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Background="Red" MouseLeftButtonDown="Tile_Selection">
-                                                <Image Source="{Binding SpriteSource}" MouseEnter="Tile_MouseEnter" MouseLeave="Tile_MouseLeave"/>
-                                                <Label Content="{Binding Name}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
+                                    <Label Content="{Binding CollectionName}"/>
+                                    <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Sprites}" SelectionChanged="TileSelectionChanged">
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="10"/>
+                                                        <RowDefinition Height="50"/>
+                                                        <RowDefinition Height="10"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Button Grid.Row="0" HorizontalAlignment="Left" Content="X" Command="{Binding DataContext.RemoveSpriteFromSpriteCollectionCommand, ElementName=MapEditor}" CommandParameter="{Binding}"/>
+                                                    <Image Grid.Row="1" Source="{Binding SpriteSource}" Stretch="Uniform" MouseEnter="Tile_MouseEnter" MouseLeave="Tile_MouseLeave"/>
+                                                    <TextBox Grid.Row="2" Text="{Binding Name}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-            </StackPanel>
+                </StackPanel>
             </Border>
         </Grid>
         <Border Grid.Column="0" Grid.Row="3">

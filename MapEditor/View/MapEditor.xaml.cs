@@ -22,7 +22,6 @@ namespace MapEditor
         BitmapSource currentTile;
         public MainWindow()
         {
-            InitializeComponent();
 
             var model = new MapEditorModel
             {
@@ -38,9 +37,10 @@ namespace MapEditor
             ViewModel = new MapEditorViewModel(model);
             ViewModel.NewMapEvent += GenerateEmptyMap;
             ViewModel.ResizeMapEvent += ResizeCurrentMap;
+            InitializeComponent();
+            DataContext = ViewModel;
             ViewModel.ResetMap();
 
-            DataContext = ViewModel;
         }
 
         private void ResizeCurrentMap()
@@ -167,20 +167,7 @@ namespace MapEditor
             tile.Opacity = 1.0;
         }
 
-
-        private void Tile_Selection(object sender, MouseButtonEventArgs e)
-        {
-            var item = (sender as StackPanel).Children[1];
-            Debug.WriteLine(item);
-            Debug.WriteLine(item.GetType());
-        }
-
-        private void Tile_Selected(object sender, MouseButtonEventArgs e)
-        {
-            Debug.WriteLine("Tile selected finally ffs");
-        }
-
-        private void FuckChanged(object sender, SelectionChangedEventArgs e)
+        private void TileSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var spriteModel = (sender as ListView)?.SelectedItem as SpriteModel;
             if(spriteModel != null)
