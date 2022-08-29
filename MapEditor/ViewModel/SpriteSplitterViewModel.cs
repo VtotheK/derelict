@@ -36,23 +36,23 @@ namespace MapEditor.ViewModel
             }
         }
 
-        public void ConfirmSpirteSplit()
+        public bool ConfirmSpirteSplit()
         {
             if(Model.SpriteHeight <= 0)
             {
                 MessageBox.Show("Sprite height have to over 0.", "Error", MessageBoxButton.OK);
-                return;
+                return false;
             }
             if( Model.SpriteWidth <= 0)
             { 
                 MessageBox.Show("Sprite width have to over 0.", "Error", MessageBoxButton.OK);
-                return;
+                return false;
 
             }
             if(String.IsNullOrEmpty(Model.SpriteCollection.CollectionName))
             {
                 MessageBox.Show("Sprite collection must have name.", "Error", MessageBoxButton.OK);
-                return;
+                return false;
             }
 
             try
@@ -62,7 +62,9 @@ namespace MapEditor.ViewModel
             catch(ArgumentException e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
+                return false;
             }
+            return true;
         }
     }
 }

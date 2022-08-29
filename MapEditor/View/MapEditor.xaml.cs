@@ -27,8 +27,8 @@ namespace MapEditor
             {
                 EditorMap = new EditorMap
                 {
-                    MapHeight = 50,
-                    MapWidth = 150,
+                    MapHeight = 5,
+                    MapWidth = 5,
                     TileHeight = 16,
                     TileWidth = 16,
                 }

@@ -95,15 +95,10 @@ namespace MapEditor.ViewModel
 
         public void OnMapSizeChanged()
         {
-            //var map = new Rectangle[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
-            //for (int y = 0; y < Model.EditorMap.MapHeight; ++y)
-            //{
-            //    for (int x = 0; x < Model.EditorMap.MapWidth; ++x)
-            //    {
-            //        map[x, y] = Model.EditorMap.Map[x, y];
-            //    }
-            //}
-            //ResizeMapEvent?.Invoke();
+            var newMap = new Rectangle[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
+            MapEditorService.CopyMap(Model.EditorMap.Map, newMap);
+            Model.EditorMap.Map = newMap;
+            ResizeMapEvent?.Invoke();
         }
     }
 }

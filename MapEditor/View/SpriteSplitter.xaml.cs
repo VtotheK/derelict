@@ -38,8 +38,7 @@ namespace MapEditor.View
 
         private void ConfirmSpriteSplit(object sender, RoutedEventArgs e)
         {
-            viewModel.ConfirmSpirteSplit();
-            this.Close();
+            if (viewModel.ConfirmSpirteSplit()) { this.Close(); }
         }
     }
 }
