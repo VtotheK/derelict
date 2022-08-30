@@ -16,6 +16,12 @@ namespace MapEditor
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    public enum MapGenerationType
+    {
+        New,
+        Resize
+    }
+
     public partial class MainWindow : Window
     {
         MapEditorViewModel ViewModel;
@@ -35,7 +41,7 @@ namespace MapEditor
             };
 
             ViewModel = new MapEditorViewModel(model);
-            ViewModel.NewMapEvent += GenerateEmptyMap;
+            ViewModel.NewMapEvent += GenerateMap;
             ViewModel.ResizeMapEvent += ResizeCurrentMap;
             DataContext = ViewModel;
             InitializeComponent();
@@ -43,12 +49,12 @@ namespace MapEditor
 
         }
 
-        private void ResizeCurrentMap()
+        private void ResizeCurrentMap(MapGenerationType generationType)
         {
-            GenerateEmptyMap();
+            GenerateMap(generationType);
         }
 
-        private void GenerateEmptyMap()
+        private void GenerateMap(MapGenerationType generationType)
         {
             TileCanvas.Children.Clear();
             int MapHeight = ViewModel.Model.EditorMap.MapHeight;
@@ -60,25 +66,37 @@ namespace MapEditor
             {
                 for(int x = 0; x < MapWidth; ++x)
                 {
+                    Rectangle rect;
 
-                    var rect = new Rectangle
+                    if(generationType == MapGenerationType.New)
                     {
-                        Width = 16,
-                        Height = 16,
-                        Fill = new SolidColorBrush(Color.FromArgb(0,0,0,0))
-                    };
+                        rect = new Rectangle
+                        {
+                            Height = TileHeight,
+                            Width = TileWidth,
+                            Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                        };
+                    }
+                    else if(generationType == MapGenerationType.Resize)
+                    {
+                        rect = ViewModel.Model.EditorMap.Map[x, y];
+                    }
+                    else { return; }
+
                     ViewModel.Model.EditorMap.Map[x, y] = rect;
                     ViewModel.Model.EditorMap.Map[x,y].MouseEnter += Tilemap_MouseEnter;
                     ViewModel.Model.EditorMap.Map[x,y].MouseLeave += Tilemap_MouseLeave;
                     ViewModel.Model.EditorMap.Map[x,y].MouseLeftButtonDown += Tilemap_MouseLeftButtonDown;
+
                     Canvas.SetLeft(ViewModel.Model.EditorMap.Map[x,y], x * TileWidth);
                     Canvas.SetTop(ViewModel.Model.EditorMap.Map[x,y], y * TileHeight);
                     TileCanvas.Children.Add(ViewModel.Model.EditorMap.Map[x,y]);
+
                     AddBorderToRect(rect, x * TileWidth, y * TileHeight);
                 }
             }
-            TileCanvas.Height = MapHeight * 16;
-            TileCanvas.Width = MapWidth * 16;
+            TileCanvas.Height = MapHeight * TileHeight;
+            TileCanvas.Width = MapWidth * TileWidth;
         }
 
         /// <summary>

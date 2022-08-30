@@ -12,7 +12,7 @@ using MapEditor.Command;
 
 namespace MapEditor.ViewModel
 {
-    public delegate void MapChangedDelegate();
+    public delegate void MapChangedDelegate(MapGenerationType generationType);
     public class MapEditorViewModel 
     {
         public event MapChangedDelegate NewMapEvent;
@@ -90,7 +90,7 @@ namespace MapEditor.ViewModel
                 //TODO ask user confirmation
             }
             Model.EditorMap.Map = new Rectangle[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
-            NewMapEvent?.Invoke();
+            NewMapEvent?.Invoke(MapGenerationType.New);
         }
 
         public void OnMapSizeChanged()
@@ -98,7 +98,7 @@ namespace MapEditor.ViewModel
             var newMap = new Rectangle[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
             MapEditorService.CopyMap(Model.EditorMap.Map, newMap);
             Model.EditorMap.Map = newMap;
-            ResizeMapEvent?.Invoke();
+            ResizeMapEvent?.Invoke(MapGenerationType.Resize);
         }
     }
 }
