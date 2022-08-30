@@ -37,15 +37,15 @@ namespace MapEditor
             ViewModel = new MapEditorViewModel(model);
             ViewModel.NewMapEvent += GenerateEmptyMap;
             ViewModel.ResizeMapEvent += ResizeCurrentMap;
-            InitializeComponent();
             DataContext = ViewModel;
+            InitializeComponent();
             ViewModel.ResetMap();
 
         }
 
         private void ResizeCurrentMap()
         {
-
+            GenerateEmptyMap();
         }
 
         private void GenerateEmptyMap()
