@@ -12,19 +12,23 @@ using MapEditor.Command;
 
 namespace MapEditor.ViewModel
 {
-    public delegate void MapChangedDelegate(MapGenerationType generationType);
+    public delegate void MapChangedDelegate();
     public class MapEditorViewModel 
     {
         public event MapChangedDelegate NewMapEvent;
         public event MapChangedDelegate ResizeMapEvent;
 
         public MapEditorModel Model { get; private set; }
-        public RelayCommand _spriteSheetOpenDialog;
-        public RelayCommand _newMapCommand;
-        public RemoveSpriteCommand _removeSpriteFromSpriteCollection;
+        private RelayCommand _spriteSheetOpenDialog;
+        private RelayCommand _newMapCommand;
+        private RelayCommand _adjustMapSize;
+        private RelayCommand _adjustSpriteSize;
+        private RemoveSpriteCommand _removeSpriteFromSpriteCollection;
 
         public RelayCommand SpriteSheetOpenDialog { get => _spriteSheetOpenDialog; set => _spriteSheetOpenDialog = value; }
         public RelayCommand NewMapCommand { get => _newMapCommand; set => _newMapCommand = value; }
+        public RelayCommand AdjustMapSizeCommand { get => _adjustMapSize; set => _adjustMapSize = value; }
+        public RelayCommand AdjustTileSizeCommand { get => _adjustSpriteSize; set => _adjustSpriteSize = value; }
         public RemoveSpriteCommand RemoveSpriteFromSpriteCollectionCommand { get => _removeSpriteFromSpriteCollection; set => _removeSpriteFromSpriteCollection = value; }
 
         public MapEditorViewModel()
@@ -49,6 +53,8 @@ namespace MapEditor.ViewModel
         {
             SpriteSheetOpenDialog = new RelayCommand(SpriteFileDialog);
             NewMapCommand = new RelayCommand(NewMapDialog);
+            AdjustMapSizeCommand = new RelayCommand(AdjustMapSize);
+            AdjustTileSizeCommand = new RelayCommand(AdjustTileSize);
             RemoveSpriteFromSpriteCollectionCommand = new RemoveSpriteCommand(RemoveSprite);
         }
 
@@ -89,8 +95,8 @@ namespace MapEditor.ViewModel
             {
                 //TODO ask user confirmation
             }
-            Model.EditorMap.Map = new MapObject[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
-            NewMapEvent?.Invoke(MapGenerationType.New);
+            Model.EditorMap.Map = MapEditorService.GetEmptyMap(Model.EditorMap);
+            NewMapEvent?.Invoke();
         }
 
         public void OnMapSizeChanged()
@@ -98,7 +104,17 @@ namespace MapEditor.ViewModel
             var newMap = new MapObject[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
             MapEditorService.CopyMap(Model.EditorMap.Map, newMap);
             Model.EditorMap.Map = newMap;
-            ResizeMapEvent?.Invoke(MapGenerationType.Resize);
+            ResizeMapEvent?.Invoke();
+        }
+
+        public void AdjustMapSize()
+        {
+            ResetMap();
+        }
+
+        public void AdjustTileSize()
+        {
+            ResetMap();
         }
     }
 }

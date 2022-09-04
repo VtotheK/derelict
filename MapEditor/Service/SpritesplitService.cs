@@ -49,9 +49,9 @@ namespace MapEditor.Service
             var currentHeight = 0;
             var currentWidth = 0;
 
-            while(currentHeight + spriteHeight < bitmap.Height)
+            while(currentHeight + spriteHeight <= bitmap.Height)
             {
-                while(currentWidth + spriteWidth < bitmap.Width)
+                while(currentWidth + spriteWidth <= bitmap.Width)
                 {
                     rectangles.Add(new Rectangle(new Point { Y = currentHeight, X = currentWidth }, new Size(spriteWidth, spriteHeight)));
                     currentWidth += spriteWidth;
@@ -64,18 +64,18 @@ namespace MapEditor.Service
 
         private ObservableCollection<GameObject> GetSpritesFromTilemap(Bitmap originalTileMap, List<Rectangle> rects)
         {
-            var spriteModels = new ObservableCollection<GameObject>();
+            var tiles = new ObservableCollection<GameObject>();
             var originalFormat = originalTileMap.PixelFormat;
             var seq = 0;
             foreach(var rect in rects)
             {
-                spriteModels.Add(new Tile
+                tiles.Add(new Tile
                 {
                     Sprite = originalTileMap.Clone(rect, originalFormat),
                     Name = $"sprite_{seq++.ToString()}"
                 });
             }
-            return spriteModels;
+            return tiles;
         }
     }
 }

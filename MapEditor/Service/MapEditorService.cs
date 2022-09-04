@@ -43,5 +43,31 @@ namespace MapEditor.Service
                 }
             }
         }
+
+        internal static MapObject[,]? GetEmptyMap(EditorMap editorMap)
+        {
+            var map = new MapObject[editorMap.MapWidth, editorMap.MapHeight];
+            int MapHeight = editorMap.MapHeight;
+            int MapWidth = editorMap.MapWidth;
+            int TileHeight = editorMap.TileWidth;
+            int TileWidth = editorMap.TileHeight;
+
+            for (int y = 0; y < MapHeight; ++y)
+            {
+                for (int x = 0; x < MapWidth; ++x)
+                {
+                    map[x, y] = new MapObject
+                    {
+                        MapRectangle = new Rectangle
+                        {
+                            Height = TileHeight,
+                            Width = TileWidth,
+                            Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                        }
+                    };
+                }
+            }
+            return map;
+        }
     }
 }

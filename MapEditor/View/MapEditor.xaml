@@ -106,11 +106,18 @@
                         <WrapPanel>
                             <Label Width="70" Content="Map height"/>
                             <TextBox Width="20" VerticalAlignment="Center" Text="{Binding Model.EditorMap.MapHeight}" KeyUp="TextBox_KeyUp"/>
-                        </WrapPanel>
-                        <WrapPanel>
                             <Label Width="70" Content="Map width"/>
                             <TextBox Width="20" VerticalAlignment="Center" Text="{Binding Model.EditorMap.MapWidth}" KeyUp="TextBox_KeyUp"/>
+                            <Button Margin="10,0,0,0" Height="20" Width="70" Command="{Binding AdjustMapSizeCommand}" Content="Adjust"/>
                         </WrapPanel>
+                        <WrapPanel>
+                            <Label Width="70" Content="Tile height"/>
+                            <TextBox Width="20" VerticalAlignment="Center" Text="{Binding Model.EditorMap.TileHeight}" KeyUp="TextBox_KeyUp"/>
+                            <Label Width="70" Content="Tile width"/>
+                            <TextBox Width="20" VerticalAlignment="Center" Text="{Binding Model.EditorMap.TileWidth}" KeyUp="TextBox_KeyUp"/>
+                            <Button Margin="10,0,0,0" Height="20" Width="70" Command="{Binding AdjustTileSizeCommand}" Content="Adjust"/>
+                        </WrapPanel>
+                        <Button />
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

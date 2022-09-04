@@ -10,5 +10,6 @@ namespace MapEditor.Model
     public class MapObject
     {
         public Rectangle MapRectangle { get; set; }
+        public List<GameObject> AttachedGameObjects { get; set; }
     }
 }
