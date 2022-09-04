@@ -10,7 +10,7 @@ namespace MapEditor.Model
     public delegate void MapSizeChangedEventHandler();
     public class EditorMap : ObservableObject
     {
-        private Rectangle[,] _map;
+        private MapObject[,] _map;
         private int _mapHeight;
         private int _mapWidth;
         private int _tileWidth;
@@ -18,7 +18,7 @@ namespace MapEditor.Model
 
         public event MapSizeChangedEventHandler MapSizeChanged;
 
-        public Rectangle[,] Map
+        public MapObject[,] Map
         {
             get => _map;
             set
@@ -59,6 +59,7 @@ namespace MapEditor.Model
                 OnPropertyChanged(ref _tileHeight, value);
             }
         }
+
         public int TileWidth
         {
             get => _tileWidth;

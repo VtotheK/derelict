@@ -57,7 +57,7 @@ namespace MapEditor.ViewModel
 
             try
             {
-                Model.SpriteCollection.Sprites = splitService.GetSprites(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
+                Model.SpriteCollection.GameObjects = splitService.GetSprites(Model.OriginalTileSet, Model.SpriteWidth ?? 0, Model.SpriteHeight ?? 0);
             }
             catch(ArgumentException e)
             {

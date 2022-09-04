@@ -9,9 +9,9 @@ using MapEditor.Extensions;
 
 namespace MapEditor.Model
 {
-    public class SpriteModel : ObservableObject, IEquatable<SpriteModel>
+    public abstract class GameObject : ObservableObject, IEquatable<GameObject>
     {
-        private Bitmap _spriteImage;
+        private Bitmap _sprite;
         private string _name;
         private string _path;
         readonly Guid _id; 
@@ -21,23 +21,23 @@ namespace MapEditor.Model
             get => _id;
         }
 
-        public SpriteModel()
+        public GameObject()
         {
             _id = Guid.NewGuid();
         }
 
         public BitmapSource SpriteSource 
         { 
-            get => _spriteImage.ToBitmapImage(); 
+            get => _sprite.ToBitmapImage(); 
         }
 
-        public Bitmap SpriteImage
+        public Bitmap Sprite
         {
-            get => _spriteImage;
+            get => _sprite;
             set
             {
-                _spriteImage = value;
-                OnPropertyChanged(ref _spriteImage, value);
+                _sprite = value;
+                OnPropertyChanged(ref _sprite, value);
             }
         }
         public string Name
@@ -52,11 +52,11 @@ namespace MapEditor.Model
 
         public override bool Equals(object other)
         {
-            if (other.GetType() != typeof(SpriteModel)) return false;
-            return other == null ? false : Id == ((SpriteModel)other).Id;
+            if (other.GetType() != typeof(GameObject)) return false;
+            return other == null ? false : Id == ((GameObject)other).Id;
         }
         
-        public bool Equals(SpriteModel? other)
+        public bool Equals(GameObject? other)
         {
             if (other == null) return false;
             return Id == other.Id;

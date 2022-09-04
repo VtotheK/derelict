@@ -23,7 +23,7 @@ namespace MapEditor.Service
             return bitmap.ToBitmapImage();
         }
 
-        public ObservableCollection<SpriteModel> GetSprites(BitmapImage originalTileMap, int spriteWidth, int spriteHeight)
+        public ObservableCollection<GameObject> GetSprites(BitmapImage originalTileMap, int spriteWidth, int spriteHeight)
         {
             if(originalTileMap.Width < spriteWidth) { throw new ArgumentException("Sprite width can't be larger than the tilemap width."); }
             if(originalTileMap.Height < spriteHeight) { throw new ArgumentException("Sprite height can't be larger than the tilemap height."); }
@@ -62,16 +62,16 @@ namespace MapEditor.Service
             return rectangles;
         }
 
-        private ObservableCollection<SpriteModel> GetSpritesFromTilemap(Bitmap originalTileMap, List<Rectangle> rects)
+        private ObservableCollection<GameObject> GetSpritesFromTilemap(Bitmap originalTileMap, List<Rectangle> rects)
         {
-            var spriteModels = new ObservableCollection<SpriteModel>();
+            var spriteModels = new ObservableCollection<GameObject>();
             var originalFormat = originalTileMap.PixelFormat;
             var seq = 0;
             foreach(var rect in rects)
             {
-                spriteModels.Add(new SpriteModel
+                spriteModels.Add(new Tile
                 {
-                    SpriteImage = originalTileMap.Clone(rect, originalFormat),
+                    Sprite = originalTileMap.Clone(rect, originalFormat),
                     Name = $"sprite_{seq++.ToString()}"
                 });
             }

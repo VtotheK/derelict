@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace MapEditor.Model
 {
-    public class SpriteCollectionModel : ObservableObject, INotifyPropertyChanged
+    public class GameObjectCollectionModel : ObservableObject, INotifyPropertyChanged
     {
         public readonly string Id;
        
         private string _collectionName;
-        private ObservableCollection<SpriteModel> _sprites;
+        private ObservableCollection<GameObject> _sprites;
 
-        public SpriteCollectionModel()
+        public GameObjectCollectionModel()
         {
-            Sprites = new ObservableCollection<SpriteModel>();
+            GameObjects = new ObservableCollection<GameObject>();
             Id = new Guid().ToString();
         }
 
-        public ObservableCollection<SpriteModel> Sprites
+        public ObservableCollection<GameObject> GameObjects
         {
             get => _sprites;
             set

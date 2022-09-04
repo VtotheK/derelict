@@ -66,33 +66,36 @@ namespace MapEditor
             {
                 for(int x = 0; x < MapWidth; ++x)
                 {
-                    Rectangle rect;
+                    MapObject mapObject;
 
                     if(generationType == MapGenerationType.New)
                     {
-                        rect = new Rectangle
+                        mapObject = new MapObject
                         {
-                            Height = TileHeight,
-                            Width = TileWidth,
-                            Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                            MapRectangle = new Rectangle
+                            {
+                                Height = TileHeight,
+                                Width = TileWidth,
+                                Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                            }
                         };
-                    }
+                    } 
                     else if(generationType == MapGenerationType.Resize)
                     {
-                        rect = ViewModel.Model.EditorMap.Map[x, y];
+                        mapObject = ViewModel.Model.EditorMap.Map[x, y];
                     }
                     else { return; }
 
-                    ViewModel.Model.EditorMap.Map[x, y] = rect;
-                    ViewModel.Model.EditorMap.Map[x,y].MouseEnter += Tilemap_MouseEnter;
-                    ViewModel.Model.EditorMap.Map[x,y].MouseLeave += Tilemap_MouseLeave;
-                    ViewModel.Model.EditorMap.Map[x,y].MouseLeftButtonDown += Tilemap_MouseLeftButtonDown;
+                    ViewModel.Model.EditorMap.Map[x, y] = mapObject;
+                    ViewModel.Model.EditorMap.Map[x,y].MapRectangle.MouseEnter += Tilemap_MouseEnter;
+                    ViewModel.Model.EditorMap.Map[x,y].MapRectangle.MouseLeave += Tilemap_MouseLeave;
+                    ViewModel.Model.EditorMap.Map[x,y].MapRectangle.MouseLeftButtonDown += Tilemap_MouseLeftButtonDown;
 
-                    Canvas.SetLeft(ViewModel.Model.EditorMap.Map[x,y], x * TileWidth);
-                    Canvas.SetTop(ViewModel.Model.EditorMap.Map[x,y], y * TileHeight);
-                    TileCanvas.Children.Add(ViewModel.Model.EditorMap.Map[x,y]);
+                    Canvas.SetLeft(ViewModel.Model.EditorMap.Map[x,y].MapRectangle, x * TileWidth);
+                    Canvas.SetTop(ViewModel.Model.EditorMap.Map[x,y].MapRectangle, y * TileHeight);
+                    TileCanvas.Children.Add(ViewModel.Model.EditorMap.Map[x,y].MapRectangle);
 
-                    AddBorderToRect(rect, x * TileWidth, y * TileHeight);
+                    AddBorderToRect(mapObject.MapRectangle, x * TileWidth, y * TileHeight);
                 }
             }
             TileCanvas.Height = MapHeight * TileHeight;
@@ -187,10 +190,10 @@ namespace MapEditor
 
         private void TileSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var spriteModel = (sender as ListView)?.SelectedItem as SpriteModel;
+            var spriteModel = (sender as ListView)?.SelectedItem as GameObject;
             if(spriteModel != null)
             {
-                currentTile = spriteModel.SpriteImage.ToBitmapImage();
+                currentTile = spriteModel.Sprite.ToBitmapImage();
             }
         }
     }

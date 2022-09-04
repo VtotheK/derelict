@@ -60,16 +60,16 @@ namespace MapEditor.ViewModel
 
         private void RemoveSprite(object model)
         {
-            var spriteModel = (SpriteModel)model;
+            var spriteModel = (GameObject)model;
             if (spriteModel == null)
-                throw new ArgumentException(nameof(SpriteModel));
+                throw new ArgumentException(nameof(GameObject));
            
-            foreach (var collection in Model.SpriteCollections)
+            foreach (var collection in Model.GameObjectCollections)
             {
-                var toDelete = collection.Sprites.Where(sprite => sprite.Id == spriteModel.Id).FirstOrDefault();
+                var toDelete = collection.GameObjects.Where(sprite => sprite.Id == spriteModel.Id).FirstOrDefault();
                 if(toDelete != null)
                 {
-                    collection.Sprites.Remove(toDelete);
+                    collection.GameObjects.Remove(toDelete);
                     break;
                 }
             }
@@ -80,7 +80,7 @@ namespace MapEditor.ViewModel
             var spriteCollection = DialogService.GetSpriteCollection();
             if(spriteCollection == null) { return;}
 
-            Model.SpriteCollections.Add(spriteCollection);
+            Model.GameObjectCollections.Add(spriteCollection);
         }
 
         public void ResetMap()
@@ -89,13 +89,13 @@ namespace MapEditor.ViewModel
             {
                 //TODO ask user confirmation
             }
-            Model.EditorMap.Map = new Rectangle[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
+            Model.EditorMap.Map = new MapObject[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
             NewMapEvent?.Invoke(MapGenerationType.New);
         }
 
         public void OnMapSizeChanged()
         {
-            var newMap = new Rectangle[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
+            var newMap = new MapObject[Model.EditorMap.MapWidth, Model.EditorMap.MapHeight];
             MapEditorService.CopyMap(Model.EditorMap.Map, newMap);
             Model.EditorMap.Map = newMap;
             ResizeMapEvent?.Invoke(MapGenerationType.Resize);

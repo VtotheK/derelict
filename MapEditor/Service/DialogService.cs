@@ -8,7 +8,7 @@ namespace MapEditor.Service
 {
     public static class DialogService
     {
-        public static SpriteCollectionModel GetSpriteCollection()
+        public static GameObjectCollectionModel GetSpriteCollection()
         {
             var dialog = new OpenFileDialog();
             dialog.DefaultExt = ".png";
@@ -28,7 +28,7 @@ namespace MapEditor.Service
             });
 
             splitter.ShowDialog();
-            if (splitter.viewModel.Model.SpriteCollection.Sprites.Count == 0)
+            if (splitter.viewModel.Model.SpriteCollection.GameObjects.Count == 0)
                 return null;
             return splitter.viewModel.Model.SpriteCollection;
         }

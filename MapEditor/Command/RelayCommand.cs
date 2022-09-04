@@ -21,7 +21,7 @@ public class RelayCommand : ICommand
         _canExecute = canExecute;
     }
 
-    public RelayCommand(Action execute) : this(execute, null)
+    public RelayCommand(Action execute) : this(execute, null!)
     {
 
     }

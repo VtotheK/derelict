@@ -52,12 +52,12 @@
             <Border>
                 <StackPanel Grid.Row="1" Grid.Column="1" CanVerticallyScroll="True">
                     <Label Content="Sprites" HorizontalAlignment="Center"/>
-                    <ListView ItemsSource="{Binding Model.SpriteCollections}">
+                    <ListView ItemsSource="{Binding Model.GameObjectCollections}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
                                     <Label Content="{Binding CollectionName}"/>
-                                    <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding Sprites}" SelectionChanged="TileSelectionChanged">
+                                    <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding GameObjects}" SelectionChanged="TileSelectionChanged">
                                         <ListView.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <WrapPanel />
@@ -97,7 +97,7 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
@@ -105,13 +105,11 @@
                     <StackPanel Margin="5,5,5,5">
                         <WrapPanel>
                             <Label Width="70" Content="Map height"/>
-                            <Slider VerticalAlignment="Center" Minimum="1" Maximum="200" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.EditorMap.MapHeight, Mode=TwoWay}"/>
-                            <TextBox VerticalAlignment="Center" Text="{Binding Model.EditorMap.MapHeight, Mode=TwoWay}" KeyUp="TextBox_KeyUp"/>
+                            <TextBox Width="20" VerticalAlignment="Center" Text="{Binding Model.EditorMap.MapHeight}" KeyUp="TextBox_KeyUp"/>
                         </WrapPanel>
                         <WrapPanel>
                             <Label Width="70" Content="Map width"/>
-                            <Slider VerticalAlignment="Center" Minimum="1" Maximum="200" Width="200" Grid.Row="3" Grid.Column="0" Value="{Binding Model.EditorMap.MapWidth, Mode=TwoWay}"/>
-                            <TextBox VerticalAlignment="Center" Text="{Binding Model.EditorMap.MapWidth, Mode=TwoWay}" KeyUp="TextBox_KeyUp"/>
+                            <TextBox Width="20" VerticalAlignment="Center" Text="{Binding Model.EditorMap.MapWidth}" KeyUp="TextBox_KeyUp"/>
                         </WrapPanel>
                     </StackPanel>
                 </ScrollViewer>

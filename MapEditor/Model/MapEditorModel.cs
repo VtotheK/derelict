@@ -15,14 +15,14 @@ namespace MapEditor.Model
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         #region Sprite panel
-        public ObservableCollection<SpriteCollectionModel> _spriteCollection;
+        public ObservableCollection<GameObjectCollectionModel> _spriteCollection;
         public MapEditorModel()
         {
-            _spriteCollection = new ObservableCollection<SpriteCollectionModel>();
+            _spriteCollection = new ObservableCollection<GameObjectCollectionModel>();
             _spriteCollection.CollectionChanged += SpriteCollectionChanged;
         }
 
-        public ObservableCollection<SpriteCollectionModel> SpriteCollections
+        public ObservableCollection<GameObjectCollectionModel> GameObjectCollections
         {
             get => _spriteCollection;
             set

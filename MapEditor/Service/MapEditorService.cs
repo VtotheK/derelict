@@ -11,26 +11,29 @@ namespace MapEditor.Service
 {
     public static class MapEditorService
     {
-        public static void CopyMap(Rectangle[,] mapFrom, Rectangle[,] mapTo)
+        public static void CopyMap(MapObject[,] mapFrom, MapObject[,] mapTo)
         {
             int toX = mapTo.GetLength(0) - 1;
             int toY = mapTo.GetLength(1) - 1;
             int fromX = mapFrom.GetLength(0) - 1;
             int fromY = mapFrom.GetLength(1) - 1;
-            int width = (int)mapFrom[0, 0].Width;
-            int height = (int)mapFrom[0, 0].Height;
+            int width = (int)mapFrom[0, 0].MapRectangle.Width;
+            int height = (int)mapFrom[0, 0].MapRectangle.Height;
 
             for (int y = 0; y <= toY; ++y)
             {
                 for (int x = 0; x <= toX; ++x)
                 {
-                    if(fromY < y || fromX < x)
+                    if (fromY < y || fromX < x)
                     {
-                        mapTo[x, y] = new Rectangle
+                        mapTo[x, y] = new MapObject
                         {
-                            Height = height,
-                            Width = width,
-                            Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                            MapRectangle = new Rectangle
+                            {
+                                Height = height,
+                                Width = width,
+                                Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                            }
                         };
                     }
                     else
