@@ -57,7 +57,7 @@
                             <DataTemplate>
                                 <StackPanel>
                                     <Label Content="{Binding CollectionName}"/>
-                                    <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding GameObjects}" SelectionChanged="TileSelectionChanged">
+                                    <ListView x:Name="SpritePanel" Width="Auto" ItemsSource="{Binding GameObjects}" SelectionChanged="GameObjectSelectionChanged">
                                         <ListView.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <WrapPanel />

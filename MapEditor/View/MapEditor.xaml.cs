@@ -10,22 +10,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MapEditor.Service;
 
 namespace MapEditor
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public enum MapGenerationType
-    {
-        New,
-        Resize
-    }
-
     public partial class MainWindow : Window
     {
         MapEditorViewModel ViewModel;
         BitmapSource currentTile;
+        MapObject[,] currentMap;
+        GameObject selectedGameObject;
         public MainWindow()
         {
 
@@ -67,7 +61,6 @@ namespace MapEditor
                     mapRect.MouseEnter += Tilemap_MouseEnter;
                     mapRect.MouseLeave += Tilemap_MouseLeave;
                     mapRect.MouseLeftButtonDown += Tilemap_MouseLeftButtonDown;
-
                     Canvas.SetLeft(mapRect, x * TileWidth);
                     Canvas.SetTop(mapRect, y * TileHeight);
                     TileCanvas.Children.Add(mapRect);
@@ -75,6 +68,7 @@ namespace MapEditor
                     AddBorderToRect(mapRect, x * TileWidth, y * TileHeight);
                 }
             }
+            currentMap = ViewModel.Model.EditorMap.Map;
         }
 
         /// <summary>
@@ -114,20 +108,27 @@ namespace MapEditor
 
         private void Tilemap_MouseLeave(object sender, MouseEventArgs e)
         {
-
+            //TODO Tile hightlighting
         }
 
         private void Tilemap_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         { 
-            if(currentTile == null) { return; }
             var rect = (Rectangle)sender;
-            rect.Fill = new ImageBrush(currentTile);
+            if(rect == null) { return; }
+
+            int x = MapEditorService.GetXCoordinate(rect.Name);
+            int y = MapEditorService.GetYCoordinate(rect.Name);
+
+            if(selectedGameObject is Tile)
+            {
+                rect.Fill = new ImageBrush(currentTile);
+            }
+
         }
 
         private void Tilemap_MouseEnter(object sender, MouseEventArgs e)
         {
-            var rect = (Rectangle)sender;
-            rect.Fill = new SolidColorBrush(Color.FromArgb(20, 0, 0, 0));
+            //TODO Tile hightlighting
         }
 
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
@@ -163,12 +164,17 @@ namespace MapEditor
             tile.Opacity = 1.0;
         }
 
-        private void TileSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void GameObjectSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var spriteModel = (sender as ListView)?.SelectedItem as GameObject;
-            if(spriteModel != null)
+            var gameObject = (sender as ListView)?.SelectedItem as GameObject;
+            if(gameObject is Tile)
             {
-                currentTile = spriteModel.Sprite.ToBitmapImage();
+                selectedGameObject = gameObject;
+                currentTile = gameObject.Sprite.ToBitmapImage();
+            }
+            else if(gameObject is SpawnPoint)
+            {
+                //TODO....
             }
         }
     }

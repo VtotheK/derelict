@@ -32,7 +32,8 @@ namespace MapEditor.Service
                             {
                                 Height = height,
                                 Width = width,
-                                Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                                Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0)),
+                                Name = $"_{x}_{y}_"
                             }
                         };
                     }
@@ -62,12 +63,26 @@ namespace MapEditor.Service
                         {
                             Height = TileHeight,
                             Width = TileWidth,
-                            Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                            Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0)),
+                            Name = $"_{x}_{y}_"
                         }
                     };
                 }
             }
             return map;
+        }
+
+        public static int GetXCoordinate(string s)
+        {
+            int ret;
+            if(int.TryParse(s.Split('_')[1], out ret)) { return ret; }
+            throw new ArgumentException("Invalid coordinate");
+        }
+        public static int GetYCoordinate(string s)
+        {
+            int ret;
+            if(int.TryParse(s.Split('_')[2], out ret)) { return ret; }
+            throw new ArgumentException("Invalid coordinate");
         }
     }
 }
