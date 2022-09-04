@@ -35,8 +35,8 @@ namespace MapEditor
                 {
                     MapHeight = 5,
                     MapWidth = 5,
-                    TileHeight = 16,
-                    TileWidth = 16,
+                    TileHeight = 64,
+                    TileWidth = 64,
                 }
             };
 
@@ -73,7 +73,6 @@ namespace MapEditor
                     TileCanvas.Children.Add(mapRect);
 
                     AddBorderToRect(mapRect, x * TileWidth, y * TileHeight);
-
                 }
             }
         }

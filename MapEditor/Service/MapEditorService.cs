@@ -49,8 +49,8 @@ namespace MapEditor.Service
             var map = new MapObject[editorMap.MapWidth, editorMap.MapHeight];
             int MapHeight = editorMap.MapHeight;
             int MapWidth = editorMap.MapWidth;
-            int TileHeight = editorMap.TileWidth;
-            int TileWidth = editorMap.TileHeight;
+            int TileHeight = editorMap.TileHeight;
+            int TileWidth = editorMap.TileWidth;
 
             for (int y = 0; y < MapHeight; ++y)
             {
