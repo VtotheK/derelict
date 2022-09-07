@@ -13,6 +13,12 @@
             <Setter Property="BorderBrush" Value="Lightblue"/>
             <Setter Property="BorderThickness" Value="10"/>
         </Style>
+        <ContextMenu x:Key="TileContextMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <MenuItem 
+                Header="Delete"
+                Click="TestyTileDelete"
+            />
+        </ContextMenu>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

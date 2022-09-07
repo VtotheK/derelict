@@ -61,6 +61,7 @@ namespace MapEditor
                     mapRect.MouseEnter += Tilemap_MouseEnter;
                     mapRect.MouseLeave += Tilemap_MouseLeave;
                     mapRect.MouseLeftButtonDown += Tilemap_MouseLeftButtonDown;
+                    mapRect.MouseRightButtonDown += Tilemap_MouseRightButtonDown;
                     Canvas.SetLeft(mapRect, x * TileWidth);
                     Canvas.SetTop(mapRect, y * TileHeight);
                     TileCanvas.Children.Add(mapRect);
@@ -70,6 +71,7 @@ namespace MapEditor
             }
             currentMap = ViewModel.Model.EditorMap.Map;
         }
+
 
         /// <summary>
         /// 
@@ -123,7 +125,14 @@ namespace MapEditor
             {
                 rect.Fill = new ImageBrush(currentTile);
             }
-
+        }
+        private void Tilemap_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var rect = (Rectangle)sender;
+            if(rect == null) { return; }
+            var menu = FindResource("TileContextMenu") as ContextMenu;
+            menu.PlacementTarget = rect;
+            menu.IsOpen = true;
         }
 
         private void Tilemap_MouseEnter(object sender, MouseEventArgs e)
@@ -175,6 +184,20 @@ namespace MapEditor
             else if(gameObject is SpawnPoint)
             {
                 //TODO....
+            }
+        }
+
+        private void TestyTileDelete(object sender, RoutedEventArgs e)
+        {
+            var item = sender as MenuItem;
+            var menu = item.Parent as ContextMenu;
+            var rect = menu.PlacementTarget as Rectangle;
+            if(rect != null)
+            {
+                rect.Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+                int x = MapEditorService.GetXCoordinate(rect.Name);
+                int y = MapEditorService.GetYCoordinate(rect.Name);
+                ViewModel.TileDeleted(x, y);
             }
         }
     }

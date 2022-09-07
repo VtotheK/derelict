@@ -107,6 +107,17 @@ namespace MapEditor.ViewModel
             ResizeMapEvent?.Invoke();
         }
 
+        public void TileDeleted(int x, int y)
+        {
+            Model.EditorMap.Map[x, y] = new MapObject 
+            { 
+                MapRectangle = new Rectangle 
+                {
+                    Height = Model.EditorMap.TileHeight, Width = Model.EditorMap.TileWidth 
+                }
+            };
+        }
+
         public void AdjustMapSize()
         {
             ResetMap();
