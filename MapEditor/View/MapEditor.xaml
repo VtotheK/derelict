@@ -32,10 +32,12 @@
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Border Grid.Column="0" Grid.Row="2">
-            <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <Canvas x:Name="TileCanvas">
-                </Canvas>
-            </ScrollViewer>
+                <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Canvas x:Name="TileCanvas"/>
+                    <Canvas x:Name="EffectCanvas"/>
+                </Grid>
+                </ScrollViewer>
         </Border>
         <DockPanel Grid.Row="0" Grid.ColumnSpan="3">
             <Menu DockPanel.Dock="Top">

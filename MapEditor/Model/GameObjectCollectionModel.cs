@@ -13,7 +13,7 @@ namespace MapEditor.Model
         public readonly string Id;
        
         private string _collectionName;
-        private ObservableCollection<GameObject> _sprites;
+        private ObservableCollection<GameObject> _gameObjects;
 
         public GameObjectCollectionModel()
         {
@@ -23,11 +23,11 @@ namespace MapEditor.Model
 
         public ObservableCollection<GameObject> GameObjects
         {
-            get => _sprites;
+            get => _gameObjects;
             set
             {
-                _sprites = value;
-                OnPropertyChanged(ref _sprites, value);
+                _gameObjects = value;
+                OnPropertyChanged(ref _gameObjects, value);
             }
         }
 

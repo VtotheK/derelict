@@ -52,6 +52,10 @@ namespace MapEditor
             int TileWidth = ViewModel.Model.EditorMap.TileWidth;
             TileCanvas.Height = MapHeight * TileHeight;
             TileCanvas.Width = MapWidth * TileWidth;
+
+            EffectCanvas.Width = MapWidth * TileWidth;
+            EffectCanvas.Height = MapHeight * TileHeight;
+
             for (int y = 0; y < MapHeight; ++y)
             {
                 for(int x = 0; x < MapWidth; ++x)

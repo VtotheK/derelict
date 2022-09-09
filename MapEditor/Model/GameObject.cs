@@ -11,6 +11,7 @@ namespace MapEditor.Model
 {
     public abstract class GameObject : ObservableObject, IEquatable<GameObject>
     {
+        //TODO: How to figure out position of the gameobject in the map?
         private Bitmap _sprite;
         private string _name;
         private string _path;
