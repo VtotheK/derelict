@@ -21,4 +21,14 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\BaseAssets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Images\BaseAssets\collider-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

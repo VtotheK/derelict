@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Shapes;
 using MapEditor.Model;
 using MapEditor.Service;
-using MapEditor.View;
 using System.Linq;
 using MapEditor.Command;
+using MapEditor.Constants;
+using System.Drawing;
 
 namespace MapEditor.ViewModel
 {
@@ -28,6 +24,21 @@ namespace MapEditor.ViewModel
         public RelayCommand SpriteSheetOpenDialog { get => _spriteSheetOpenDialog; set => _spriteSheetOpenDialog = value; }
         public RelayCommand NewMapCommand { get => _newMapCommand; set => _newMapCommand = value; }
         public RelayCommand AdjustMapSizeCommand { get => _adjustMapSize; set => _adjustMapSize = value; }
+
+        public void LoadBasicAssets()
+        {
+            var collection = new GameObjectCollectionModel();
+            var collider = new Collider
+            {
+                Name = "Collider",
+                Sprite = MapEditorService.LoadBitmapFromPath(SpriteConstants.ColliderIconPath),
+                HasEditorOverlay = true,
+                EditorColor = Color.FromArgb(120, 255, 255, 255),
+            };
+            collection.GameObjects.Add(collider);
+            Model.GameObjectCollections.Add(collection);
+        }
+
         public RelayCommand AdjustTileSizeCommand { get => _adjustSpriteSize; set => _adjustSpriteSize = value; }
         public RemoveSpriteCommand RemoveSpriteFromSpriteCollectionCommand { get => _removeSpriteFromSpriteCollection; set => _removeSpriteFromSpriteCollection = value; }
 
@@ -111,7 +122,7 @@ namespace MapEditor.ViewModel
         {
             Model.EditorMap.Map[x, y] = new MapObject 
             { 
-                MapRectangle = new Rectangle 
+                MapRectangle = new System.Windows.Shapes.Rectangle 
                 {
                     Height = Model.EditorMap.TileHeight, Width = Model.EditorMap.TileWidth 
                 }

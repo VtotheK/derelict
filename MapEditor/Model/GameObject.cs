@@ -13,6 +13,8 @@ namespace MapEditor.Model
     {
         //TODO: How to figure out position of the gameobject in the map?
         private Bitmap _sprite;
+        private bool _hasEditorOverlay;
+        private Color _editorColor;
         private string _name;
         private string _path;
         readonly Guid _id; 
@@ -48,6 +50,26 @@ namespace MapEditor.Model
             {
                 _name = value;
                 OnPropertyChanged(ref _name, value);
+            }
+        }
+
+        public Color EditorColor
+        {
+            get => _editorColor;
+            set
+            {
+                _editorColor = value;
+                OnPropertyChanged(ref _editorColor, value);
+            }
+        }
+
+        public bool HasEditorOverlay
+        {
+            get => _hasEditorOverlay;
+            set
+            {
+                _hasEditorOverlay = value;
+                OnPropertyChanged(ref _hasEditorOverlay, value);
             }
         }
 

@@ -1,16 +1,32 @@
 ﻿using MapEditor.Model;
+using MapEditor.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Drawing;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace MapEditor.Service
 {
     public static class MapEditorService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static Bitmap LoadBitmapFromPath(string path)
+        {
+            if (!File.Exists(path)) { return null; }
+            using(var file = File.Open(path, FileMode.Open))
+            {
+                if (!file.IsImageFile())
+                {
+                    return null;
+                }
+            }
+            return new Bitmap(File.Open(path, FileMode.Open)); //Hacky stuff, rewrite later. Yeah right...
+        }
+
         public static void CopyMap(MapObject[,] mapFrom, MapObject[,] mapTo)
         {
             int toX = mapTo.GetLength(0) - 1;
@@ -28,11 +44,11 @@ namespace MapEditor.Service
                     {
                         mapTo[x, y] = new MapObject
                         {
-                            MapRectangle = new Rectangle
+                            MapRectangle = new System.Windows.Shapes.Rectangle
                             {
                                 Height = height,
                                 Width = width,
-                                Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0)),
+                                Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0)),
                                 Name = $"_{x}_{y}_"
                             }
                         };
@@ -59,11 +75,11 @@ namespace MapEditor.Service
                 {
                     map[x, y] = new MapObject
                     {
-                        MapRectangle = new Rectangle
+                        MapRectangle = new System.Windows.Shapes.Rectangle
                         {
                             Height = TileHeight,
                             Width = TileWidth,
-                            Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0)),
+                            Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0)),
                             Name = $"_{x}_{y}_"
                         }
                     };

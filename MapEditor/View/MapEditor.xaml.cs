@@ -33,10 +33,10 @@ namespace MapEditor
                     TileWidth = 64,
                 }
             };
-
             ViewModel = new MapEditorViewModel(model);
             ViewModel.NewMapEvent += GenerateMap;
             ViewModel.ResizeMapEvent += GenerateMap;
+            ViewModel.LoadBasicAssets();
             DataContext = ViewModel;
             InitializeComponent();
             ViewModel.ResetMap();
