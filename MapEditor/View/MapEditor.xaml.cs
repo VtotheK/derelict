@@ -129,6 +129,13 @@ namespace MapEditor
             {
                 rect.Fill = new ImageBrush(currentTile);
             }
+            else if(selectedGameObject is Collider)
+            {
+                if(ViewModel.AddColliderVertex(e.GetPosition(EffectCanvas)) == MeshState.Closed)
+                {
+                    //TODO Close mesh
+                }
+            }
         }
         private void Tilemap_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -185,9 +192,9 @@ namespace MapEditor
                 selectedGameObject = gameObject;
                 currentTile = gameObject.Sprite.ToBitmapImage();
             }
-            else if(gameObject is SpawnPoint)
+            else if(gameObject is Collider)
             {
-                //TODO....
+                selectedGameObject = gameObject;
             }
         }
 

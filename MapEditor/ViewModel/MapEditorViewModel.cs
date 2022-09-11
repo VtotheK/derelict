@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections;
 using MapEditor.Model;
 using MapEditor.Service;
 using System.Linq;
 using MapEditor.Command;
 using MapEditor.Constants;
+using System.Windows;
 using System.Drawing;
 
 namespace MapEditor.ViewModel
@@ -20,10 +23,13 @@ namespace MapEditor.ViewModel
         private RelayCommand _adjustMapSize;
         private RelayCommand _adjustSpriteSize;
         private RemoveSpriteCommand _removeSpriteFromSpriteCollection;
+        private Collider? _collider;
 
         public RelayCommand SpriteSheetOpenDialog { get => _spriteSheetOpenDialog; set => _spriteSheetOpenDialog = value; }
         public RelayCommand NewMapCommand { get => _newMapCommand; set => _newMapCommand = value; }
         public RelayCommand AdjustMapSizeCommand { get => _adjustMapSize; set => _adjustMapSize = value; }
+        public RelayCommand AdjustTileSizeCommand { get => _adjustSpriteSize; set => _adjustSpriteSize = value; }
+        public RemoveSpriteCommand RemoveSpriteFromSpriteCollectionCommand { get => _removeSpriteFromSpriteCollection; set => _removeSpriteFromSpriteCollection = value; }
 
         public void LoadBasicAssets()
         {
@@ -39,8 +45,6 @@ namespace MapEditor.ViewModel
             Model.GameObjectCollections.Add(collection);
         }
 
-        public RelayCommand AdjustTileSizeCommand { get => _adjustSpriteSize; set => _adjustSpriteSize = value; }
-        public RemoveSpriteCommand RemoveSpriteFromSpriteCollectionCommand { get => _removeSpriteFromSpriteCollection; set => _removeSpriteFromSpriteCollection = value; }
 
         public MapEditorViewModel()
         {
@@ -127,6 +131,15 @@ namespace MapEditor.ViewModel
                     Height = Model.EditorMap.TileHeight, Width = Model.EditorMap.TileWidth 
                 }
             };
+        }
+
+        public MeshState AddColliderVertex(System.Windows.Point point)
+        {
+            if(_collider == null)
+            {
+                _collider = new Collider();
+            }
+            _collider.AddColliderVertex(point);
         }
 
         public void AdjustMapSize()
