@@ -13,7 +13,7 @@ namespace MapEditor.Model
 
     public class Collider : GameObject
     {
-        private List<ColliderVertex> ColliderVertices;
+        public List<ColliderVertex> ColliderVertices { get; set; }
         private int VertexOrder;
         public Collider() : base()
         {
@@ -23,12 +23,19 @@ namespace MapEditor.Model
 
         public void AddColliderVertex(Point point)
         {
+            var roundedX = Math.Round(point.X,0);
+            var roundedY = Math.Round(point.Y,0);
             ColliderVertices.Add(new ColliderVertex
             {
                 Parent = this,
-                Vertex = point,
+                Vertex = new Point
+                {
+                    X = roundedX,
+                    Y = roundedY
+                },
                 Order = VertexOrder++
             });
         }
+        public int VertexCount { get => ColliderVertices.Count; }
     }
 }

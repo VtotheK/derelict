@@ -2,6 +2,7 @@
 using MapEditor.ViewModel;
 using MapEditor.Extensions;
 using System;
+using System.Linq;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -131,14 +132,58 @@ namespace MapEditor
             }
             else if(selectedGameObject is Collider)
             {
-                if(ViewModel.AddColliderVertex(e.GetPosition(EffectCanvas)) == MeshState.Closed)
+                var test = e.GetPosition(EffectCanvas);
+                var vertexPosition = e.GetPosition(EffectCanvas);
+                var meshState = ViewModel.AddColliderVertex(vertexPosition);
+                if(meshState == MeshState.Closed)
                 {
                     //TODO Close mesh
                 }
+                else if(meshState == MeshState.Open)
+                {
+                    var currentCollider = ViewModel.GetCollider();
+                    DrawColliderVertices(currentCollider);
+                }
             }
         }
+
+        private void DrawColliderVertices(Collider currentCollider)
+        {
+            ColliderVertex currentVertex;
+            ColliderVertex previousVertex;
+            Point currentMapEditorPoint;
+            Line colliderLine;
+            var vertices = currentCollider.ColliderVertices.OrderBy(v => v.Order).ToList();
+            for(int i = 0; i < vertices.Count; ++i)
+            {
+                if(i == 0) {
+                    currentVertex = vertices[i];
+                    currentMapEditorPoint = currentVertex.Vertex;
+                }
+                else
+                {
+                    currentVertex = vertices[i];
+                    var lineFrom = currentMapEditorPoint;
+                    currentMapEditorPoint = currentVertex.Vertex;
+                    var lineTo = currentMapEditorPoint;
+                    var line = new Line
+                    {
+                        X1 = lineFrom.X,
+                        Y1 = lineFrom.Y,
+                        X2 = lineTo.X,
+                        Y2 = lineTo.Y,
+                        Stroke = new SolidColorBrush(Colors.Red),
+                        StrokeThickness = 1,
+                        SnapsToDevicePixels = true
+                    };
+                    EffectCanvas.Children.Add(line);
+                }
+            }
+        }
+
         private void Tilemap_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             var rect = (Rectangle)sender;
             if(rect == null) { return; }
             var menu = FindResource("TileContextMenu") as ContextMenu;

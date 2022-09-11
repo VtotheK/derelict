@@ -34,8 +34,8 @@
         <Border Grid.Column="0" Grid.Row="2">
                 <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <Grid>
-                    <Canvas x:Name="TileCanvas"/>
-                    <Canvas x:Name="EffectCanvas"/>
+                    <Canvas x:Name="TileCanvas" Panel.ZIndex="1"/>
+                    <Canvas x:Name="EffectCanvas" Panel.ZIndex="2"/>
                 </Grid>
                 </ScrollViewer>
         </Border>

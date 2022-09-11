@@ -140,6 +140,13 @@ namespace MapEditor.ViewModel
                 _collider = new Collider();
             }
             _collider.AddColliderVertex(point);
+            return MapEditorService.CheckClosedColliderMesh(_collider);
+        }
+
+        public Collider GetCollider()
+        {
+            if(_collider != null) { return _collider; }
+            return null;
         }
 
         public void AdjustMapSize()

@@ -1,6 +1,9 @@
 ﻿using MapEditor.Model;
 using MapEditor.Extensions;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Drawing;
 using System.Windows.Media;
@@ -9,11 +12,6 @@ namespace MapEditor.Service
 {
     public static class MapEditorService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
         public static Bitmap LoadBitmapFromPath(string path)
         {
             if (!File.Exists(path)) { return null; }
@@ -99,6 +97,23 @@ namespace MapEditor.Service
             int ret;
             if(int.TryParse(s.Split('_')[2], out ret)) { return ret; }
             throw new ArgumentException("Invalid coordinate");
+        }
+
+        public static MeshState CheckClosedColliderMesh(Collider collider)
+        {
+            for(int i = 0; i < collider.VertexCount; ++i)
+            {
+                for(int j = 0; j < collider.VertexCount; ++j)
+                {
+                    if(j == i) { continue; }
+                    var aX = collider.ColliderVertices[i].Vertex.X;
+                    var aY = collider.ColliderVertices[i].Vertex.Y;
+                    var bX = collider.ColliderVertices[j].Vertex.X;
+                    var bY = collider.ColliderVertices[j].Vertex.Y;
+                    if(aX == bX && aY == bY) { return MeshState.Closed; }
+                }
+            }
+            return MeshState.Open;
         }
     }
 }
