@@ -17,16 +17,20 @@ namespace MapEditor.Model
         private Color _editorColor;
         private string _name;
         private string _path;
-        readonly Guid _id; 
+        readonly string _id; 
 
-        public Guid Id
+        public string Id
         {
             get => _id;
         }
 
         public GameObject()
         {
-            _id = Guid.NewGuid();
+            _id = "ID_" + Guid.NewGuid().ToString("N");
+        }
+        public GameObject(Type type)
+        {
+            _id = type.Name + '_' + Guid.NewGuid().ToString("N");
         }
 
         public BitmapSource SpriteSource 

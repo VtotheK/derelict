@@ -132,18 +132,7 @@ namespace MapEditor
             }
             else if(selectedGameObject is Collider)
             {
-                var test = e.GetPosition(EffectCanvas);
-                var vertexPosition = e.GetPosition(EffectCanvas);
-                var meshState = ViewModel.AddColliderVertex(vertexPosition);
-                if(meshState == MeshState.Closed)
-                {
-                    //TODO Close mesh
-                }
-                else if(meshState == MeshState.Open)
-                {
-                    var currentCollider = ViewModel.GetCollider();
-                    DrawColliderVertices(currentCollider);
-                }
+                AddColliderVertex(e.GetPosition(EffectCanvas));
             }
         }
 
@@ -176,8 +165,37 @@ namespace MapEditor
                         StrokeThickness = 1,
                         SnapsToDevicePixels = true
                     };
+                    line.MouseLeftButtonDown += OnClickColliderLine;
+                    Button btn = new Button
+                    {
+                        Name = currentVertex.Id,
+                    };
+                    btn.Click += OnCloseColliderMesh;
+                    btn.Style = FindResource("ColliderConnectorButtonStyle") as Style;
+                    //btn.Resources = FindResource("ColliderConnectorBorderStyle") as Style;
                     EffectCanvas.Children.Add(line);
+                    Canvas.SetTop(btn, line.Y1 - btn.Height / 2);
+                    Canvas.SetLeft(btn, line.X1 - btn.Width / 2);
+                    EffectCanvas.Children.Add(btn);
                 }
+            }
+        }
+
+        private void OnCloseColliderMesh(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            Debug.WriteLine(btn.Name);
+        }
+
+        private void OnClickColliderLine(object sender, MouseButtonEventArgs e)
+        {
+            if(selectedGameObject is Collider)
+            {
+                AddColliderVertex(e.GetPosition(EffectCanvas));
+            }
+            else if(selectedGameObject is Tile)
+            {
+                //TODO 
             }
         }
 
@@ -243,11 +261,26 @@ namespace MapEditor
             }
         }
 
+        private void AddColliderVertex(Point point)
+        {
+            var vertexPosition = point;
+            var meshState = ViewModel.AddColliderVertex(vertexPosition);
+            if(meshState == MeshState.Closed)
+            {
+
+            }
+            else if(meshState == MeshState.Open)
+            {
+                var currentCollider = ViewModel.GetCollider();
+                DrawColliderVertices(currentCollider);
+            }
+        }
+
         private void TestyTileDelete(object sender, RoutedEventArgs e)
         {
             var item = sender as MenuItem;
-            var menu = item.Parent as ContextMenu;
-            var rect = menu.PlacementTarget as Rectangle;
+            var menu = item?.Parent as ContextMenu;
+            var rect = menu?.PlacementTarget as Rectangle;
             if(rect != null)
             {
                 rect.Fill = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));

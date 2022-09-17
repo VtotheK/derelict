@@ -13,6 +13,13 @@
             <Setter Property="BorderBrush" Value="Lightblue"/>
             <Setter Property="BorderThickness" Value="10"/>
         </Style>
+        <Style x:Key="ColliderConnectorBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="20"></Setter>
+        </Style>
+        <Style x:Key="ColliderConnectorButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+        </Style>
         <ContextMenu x:Key="TileContextMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
             <MenuItem 
                 Header="Delete"
